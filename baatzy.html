@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bäätzy</title>
+  <link rel="stylesheet" href="styles/baatzy.css" />
+</head>
+<body>
+  <main class="game">
+    <header class="top">
+      <a href="baatzy-meny.html">
+        <img src="images/baatzy/meny-btn.png" alt="Meny" class="menu-btn" />
+      </a>
+
+      <img src="images/baatzy/baatzy-logo.png" alt="Bäätzy" class="game-logo" />
+
+      <div class="status">
+        <span>Kast</span>
+        <strong id="rollsLeft">3</strong>
+      </div>
+    </header>
+
+    <section class="dice-area">
+      <img src="images/baatzy/dice-board.png" alt="" class="dice-board" />
+
+      <div class="dice-row" id="diceRow"></div>
+
+      <button id="rollBtn" class="roll-btn">
+        <img src="images/baatzy/kasta-btn.png" alt="Kasta" />
+      </button>
+    </section>
+
+    <section class="score-panel">
+      <h2>Poängtavla</h2>
+      <div id="scoreBoard"></div>
+
+      <div class="total">
+        <span>Summa</span>
+        <strong id="totalScore">0</strong>
+      </div>
+    </section>
+
+    <section class="info">
+      <p><strong>BÄÄÄTZY!</strong> Fem lika ger 50 poäng.</p>
+    </section>
+  </main>
+
+  <script src="scripts/baatzy.js"></script>
+</body>
+</html>

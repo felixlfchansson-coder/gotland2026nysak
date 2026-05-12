@@ -1,0 +1,223 @@
+* {
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  background: url("../images/baatzy/baatzy-bg.png") center / cover no-repeat fixed;
+  color: #2a190b;
+}
+
+.game {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  padding: 12px;
+  min-height: 100vh;
+  display: grid;
+  gap: 14px;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 76px 1fr 76px;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-btn {
+  width: 200px;
+}
+
+.game-logo {
+  width: 100%;
+  max-height: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 7px 8px rgba(0,0,0,.35));
+}
+
+.status {
+  background: rgba(255, 238, 190, .93);
+  border: 3px solid #8b5a2b;
+  border-radius: 16px;
+  padding: 8px;
+  text-align: center;
+  font-weight: 900;
+}
+
+.status span {
+  display: block;
+  font-size: .8rem;
+}
+
+.status strong {
+  font-size: 2rem;
+}
+
+.dice-area {
+  position: relative;
+  min-height: 230px;
+  display: grid;
+  place-items: center;
+}
+
+.dice-board {
+  width: 100%;
+  max-width: 720px;
+  pointer-events: none;
+}
+
+.dice-row {
+  position: absolute;
+  top: 17%;
+  width: 75%;
+  max-width: 620px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  align-items: center;
+}
+
+.die {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.die img {
+  width: 100%;
+  display: block;
+  transition: transform .15s, filter .15s;
+}
+
+.die.locked img {
+  transform: translateY(-10px) scale(.94);
+  filter: brightness(.75);
+}
+
+.die.locked::after {
+  content: "🔒";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffe7a6;
+  border: 2px solid #5a3717;
+  border-radius: 999px;
+  padding: 2px 7px;
+  font-size: .9rem;
+}
+
+.roll-btn {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  width: min(82vw, 330px);
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.roll-btn img {
+  width: 100%;
+}
+
+.roll-btn:active {
+  transform: scale(.96);
+}
+
+.score-panel {
+  background: rgba(255, 237, 192, .94);
+  border: 4px solid #8b5a2b;
+  border-radius: 22px;
+  padding: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+.score-panel h2 {
+  text-align: center;
+  margin: 0 0 12px;
+  font-size: 1.8rem;
+}
+
+.score-row {
+  width: 100%;
+  min-height: 44px;
+  margin-bottom: 7px;
+  padding: 9px 10px;
+  border: 2px solid #9c6a35;
+  border-radius: 12px;
+  background: rgba(255,255,255,.45);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.score-row.used {
+  opacity: .55;
+  cursor: default;
+}
+
+.score-row.preview {
+  background: #fff3b0;
+}
+
+.total {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #5f9f28;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.info {
+  background: rgba(255, 245, 210, .9);
+  border-radius: 16px;
+  padding: 10px 14px;
+  text-align: center;
+  font-weight: 800;
+}
+
+@media (min-width: 850px) {
+  .game {
+    grid-template-columns: 1.4fr .8fr;
+    grid-template-areas:
+      "top top"
+      "dice score"
+      "info score";
+    align-content: start;
+    padding: 24px;
+  }
+
+  .top {
+    grid-area: top;
+  }
+
+  .dice-area {
+    grid-area: dice;
+    min-height: 360px;
+  }
+
+  .score-panel {
+    grid-area: score;
+  }
+
+  .info {
+    grid-area: info;
+  }
+}
+@media (max-width: 700px) {
+    .menu-btn {
+    max-width: 100px;
+  }
+}

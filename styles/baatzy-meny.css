@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  background: url("../images/baatzy/baatzy-bg.png") center / cover no-repeat;
+  color: #2b1b0d;
+}
+
+.menu-screen {
+  min-height: 100vh;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.logo {
+  width: min(92vw, 520px);
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.35));
+}
+
+.menu-card {
+  width: min(92vw, 430px);
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255, 239, 196, 0.92);
+  border: 4px solid #8b5a2b;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  text-align: center;
+}
+
+.menu-card h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 12vw, 4rem);
+}
+
+.menu-card p {
+  font-weight: 700;
+}
+
+.play-btn {
+  display: block;
+  margin: 22px auto;
+  padding: 16px 24px;
+  width: 100%;
+  border-radius: 18px;
+  background: #5f9f28;
+  color: white;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 900;
+  box-shadow: 0 7px 0 #346315;
+}
+
+.play-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #346315;
+}
+
+.rules {
+  text-align: left;
+  background: rgba(255,255,255,.45);
+  padding: 14px;
+  border-radius: 16px;
+}
+
+.rules h2 {
+  margin-top: 0;
+}
