@@ -17,26 +17,44 @@ const categories = [
   { id: "three", label: "Triss" },
   { id: "four", label: "Fyrtal" },
   { id: "fullHouse", label: "Full fårhage" },
-  { id: "small", label: "Liten flock 1–5" },
-  { id: "large", label: "Stor flock 2–6" },
+  { id: "small", label: "Liten flock" },
   { id: "baatzy", label: "BÄÄÄTZY" },
   { id: "chance", label: "Chans" }
 ];
 
+let players = JSON.parse(localStorage.getItem("baatzyPlayers")) || [
+  {
+    name: "Spelare 1",
+    avatar: "images/baatzy/body-white.png",
+    scores: {}
+  },
+  {
+    name: "Spelare 2",
+    avatar: "images/baatzy/body-viridian.png",
+    scores: {}
+  }
+];
+
+let currentPlayer = Number(localStorage.getItem("baatzyCurrentPlayer")) || 0;
+let scores = players[currentPlayer].scores;
+
 let dice = [0, 0, 0, 0, 0];
 let locked = [false, false, false, false, false];
 let rollsLeft = 3;
-let scores = {};
 
 const diceRow = document.getElementById("diceRow");
 const rollBtn = document.getElementById("rollBtn");
 const rollsLeftEl = document.getElementById("rollsLeft");
 const scoreBoard = document.getElementById("scoreBoard");
 const totalScoreEl = document.getElementById("totalScore");
+const playersBar = document.getElementById("playersBar");
 
 function init() {
+  scores = players[currentPlayer].scores;
+
   renderDice();
   renderScoreBoard();
+  renderPlayersBar();
   updateUI();
 }
 
@@ -49,6 +67,7 @@ function rollDice() {
   });
 
   rollsLeft--;
+
   renderDice();
   renderScoreBoard();
   updateUI();
@@ -56,6 +75,7 @@ function rollDice() {
 
 function toggleLock(index) {
   if (rollsLeft === 3) return;
+
   locked[index] = !locked[index];
   renderDice();
 }
@@ -77,6 +97,27 @@ function renderDice() {
   });
 }
 
+function renderPlayersBar() {
+  playersBar.innerHTML = "";
+
+  players.forEach((player, index) => {
+    const total = Object.values(player.scores).reduce((a, b) => a + b, 0);
+
+    const pill = document.createElement("div");
+    pill.className = index === currentPlayer ? "player-pill active" : "player-pill";
+
+    pill.innerHTML = `
+      <img src="${player.avatar}" alt="">
+      <div>
+        <strong>${player.name}</strong>
+        <span>${total} poäng</span>
+      </div>
+    `;
+
+    playersBar.appendChild(pill);
+  });
+}
+
 function renderScoreBoard() {
   scoreBoard.innerHTML = "";
 
@@ -85,7 +126,7 @@ function renderScoreBoard() {
     row.className = "score-row";
 
     const used = scores[cat.id] !== undefined;
-    const preview = calculateScore(cat.id);
+    const preview = rollsLeft < 3 ? calculateScore(cat.id) : "-";
 
     if (used) row.classList.add("used");
     if (!used && rollsLeft < 3) row.classList.add("preview");
@@ -106,17 +147,35 @@ function chooseScore(categoryId) {
   if (rollsLeft === 3) return;
 
   scores[categoryId] = calculateScore(categoryId);
-  nextRound();
+  players[currentPlayer].scores = scores;
+
+  saveGame();
+  nextPlayer();
 }
 
-function nextRound() {
+function nextPlayer() {
+  currentPlayer++;
+
+  if (currentPlayer >= players.length) {
+    currentPlayer = 0;
+  }
+
+  scores = players[currentPlayer].scores;
+
   dice = [0, 0, 0, 0, 0];
   locked = [false, false, false, false, false];
   rollsLeft = 3;
 
+  localStorage.setItem("baatzyCurrentPlayer", String(currentPlayer));
+
   renderDice();
   renderScoreBoard();
+  renderPlayersBar();
   updateUI();
+}
+
+function saveGame() {
+  localStorage.setItem("baatzyPlayers", JSON.stringify(players));
 }
 
 function calculateScore(categoryId) {
@@ -125,33 +184,39 @@ function calculateScore(categoryId) {
   const sum = values.reduce((a, b) => a + b, 0);
 
   const colorIndex = diceImages.findIndex(d => d.name === categoryId);
+
   if (colorIndex !== -1) {
     const number = colorIndex + 1;
     return values.filter(v => v === number).length * number;
   }
 
   const countValues = Object.values(counts).sort((a, b) => b - a);
-  const numberValues = Object.keys(counts).map(Number).sort((a, b) => b - a);
 
   switch (categoryId) {
     case "pair":
       return scoreOfKind(counts, 2);
+
     case "twoPair":
       return scoreTwoPair(counts);
+
     case "three":
       return scoreOfKind(counts, 3);
+
     case "four":
       return scoreOfKind(counts, 4);
+
     case "fullHouse":
       return countValues.includes(3) && countValues.includes(2) ? sum : 0;
+
     case "small":
       return hasStraight(values, [1, 2, 3, 4, 5]) ? 15 : 0;
-    case "large":
-      return hasStraight(values, [2, 3, 4, 5, 6]) ? 20 : 0;
+
     case "baatzy":
       return countValues[0] === 5 ? 50 : 0;
+
     case "chance":
       return sum;
+
     default:
       return 0;
   }
@@ -180,6 +245,7 @@ function scoreTwoPair(counts) {
     .sort((a, b) => b - a);
 
   if (pairs.length < 2) return 0;
+
   return pairs[0] * 2 + pairs[1] * 2;
 }
 
@@ -190,7 +256,7 @@ function hasStraight(values, needed) {
 function updateUI() {
   rollsLeftEl.textContent = rollsLeft;
 
-  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  const total = Object.values(players[currentPlayer].scores).reduce((a, b) => a + b, 0);
   totalScoreEl.textContent = total;
 
   rollBtn.disabled = rollsLeft <= 0;

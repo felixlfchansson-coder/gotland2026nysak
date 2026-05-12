@@ -163,30 +163,41 @@ body {
 
 </div>
 </div>
-
 </body>
-<script>
+<script src="scripts/profilebox.js"></script>
+
+<script type="module">
+import {
+  markPageVisited,
+  addCounter
+} from "./scripts/cosmetics.js";
+
+markPageVisited("dadjokes");
 
 let faktaData = [];
 
 fetch("fakta_structured.json")
   .then(response => response.json())
   .then(data => {
-
-    // Hämtar dadjokessektionen
     faktaData = data.dadjokes.facts;
-
   });
 
 const faktaKnapp = document.getElementById("faktaKnapp");
 const faktaText = document.getElementById("faktaText");
 
 faktaKnapp.addEventListener("click", () => {
-  const slumpTal = Math.floor(Math.random() * faktaData.length);
 
-  faktaText.textContent = faktaData[slumpTal];
+  // Crimson progress
+  addCounter("dadJokes");
+
+  if (!faktaData.length) return;
+
+  const slumpTal =
+    Math.floor(Math.random() * faktaData.length);
+
+  faktaText.textContent =
+    faktaData[slumpTal];
 });
-
 </script>
 <script src="scripts/profilebox.js"></script>
 </html>

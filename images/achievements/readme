@@ -1,0 +1,18 @@
+images/
+└── achievements/
+    ├── fallback.png
+    ├── flyktmastare.png
+    ├── snabb-far.png
+    ├── sheep-line-clear.png
+    ├── sheep-line-hard.png
+    ├── sheep-line-insane.png
+    ├── woolborn-clear.png
+    ├── woolborn-hard.png
+    ├── woolborn-insane.png
+    ├── storm-master.png
+    ├── susano-shadow.png
+    ├── woolkong-king.png
+    ├── lore-reader.png
+    ├── quiz-master.png
+    ├── token-collector.png
+    └── godfar.png

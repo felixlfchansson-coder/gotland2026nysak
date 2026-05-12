@@ -152,7 +152,169 @@ export class Renderer {
     if (e.type === "slash") {
       ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 9;
       ctx.beginPath(); ctx.arc(e.x, e.y, 42, -0.9, 0.9); ctx.stroke();
-    } else if (e.type === "heal") {
+
+      
+    }
+    else if (e.type === "susano") {
+  const t = e.life / e.maxLife;
+  const dir = e.dir || 1;
+  const color = e.color || "#b84cff";
+
+  ctx.save();
+  ctx.translate(e.x, e.y);
+  ctx.scale(dir, 1);
+  ctx.rotate(-0.25);
+
+  ctx.globalAlpha = 0.85 * t;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 28;
+
+  // Yttre crescent
+  ctx.beginPath();
+  ctx.arc(0, 0, 95 * (1.15 - t * 0.15), -1.25, 1.25);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 18;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // Inre ljus kant
+  ctx.globalAlpha = 0.95 * t;
+  ctx.beginPath();
+  ctx.arc(0, 0, 72 * (1.15 - t * 0.15), -1.05, 1.05);
+  ctx.strokeStyle = "#f0c8ff";
+  ctx.lineWidth = 5;
+  ctx.stroke();
+
+  // Snabb slash-strimma
+  ctx.globalAlpha = 0.55 * t;
+  ctx.beginPath();
+  ctx.moveTo(-70, -38);
+  ctx.quadraticCurveTo(20, 0, -70, 38);
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.restore();
+}
+else if (e.type === "stormOrbReturn") {
+  const progress = 1 - t;
+  const dir = e.dir || 1;
+  const distance = e.distance || 230;
+
+  // Fram första halvan, tillbaka andra halvan
+  const travel =
+    progress < 0.5
+      ? progress / 0.5
+      : 1 - ((progress - 0.5) / 0.5);
+
+  const x = e.x + dir * distance * travel;
+  const y = e.y + Math.sin(progress * Math.PI * 2) * 18;
+
+  ctx.save();
+
+  // Trail
+  ctx.globalAlpha = 0.35 * t;
+  ctx.strokeStyle = e.glow || "#7dd3fc";
+  ctx.lineWidth = 10;
+  ctx.lineCap = "round";
+  ctx.shadowColor = e.glow || "#7dd3fc";
+  ctx.shadowBlur = 22;
+  ctx.beginPath();
+  ctx.moveTo(e.x, e.y);
+  ctx.quadraticCurveTo(
+    e.x + dir * distance * 0.5,
+    e.y - 38,
+    x,
+    y
+  );
+  ctx.stroke();
+
+  // Glow
+  ctx.globalAlpha = 0.7;
+  ctx.fillStyle = e.glow || "#7dd3fc";
+  ctx.shadowColor = e.glow || "#7dd3fc";
+  ctx.shadowBlur = 34;
+  ctx.beginPath();
+  ctx.arc(x, y, 24, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Mörkblå orb
+  ctx.globalAlpha = 1;
+  ctx.shadowBlur = 18;
+  ctx.fillStyle = e.color || "#0b2f8a";
+  ctx.beginPath();
+  ctx.arc(x, y, 15, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Ljus kärna
+  ctx.fillStyle = "#dff8ff";
+  ctx.beginPath();
+  ctx.arc(x - dir * 4, y - 4, 5, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.restore();
+}
+else if (e.type === "woolkongStaffSpin") {
+  const progress = 1 - t;
+  const spins = progress * Math.PI * 2 * 3.4;
+  const radius = e.radius || 95;
+
+  ctx.save();
+  ctx.translate(e.x, e.y);
+  ctx.rotate(spins);
+
+  // Snurr-glow
+  ctx.globalAlpha = 0.25 * t;
+  ctx.strokeStyle = "#facc15";
+  ctx.lineWidth = 14;
+  ctx.shadowColor = "#facc15";
+  ctx.shadowBlur = 24;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Brun stav
+  ctx.globalAlpha = 1 * t;
+  ctx.shadowColor = "#facc15";
+  ctx.shadowBlur = 10;
+  ctx.strokeStyle = "#7c3f12";
+  ctx.lineWidth = 13;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(-radius, 0);
+  ctx.lineTo(radius, 0);
+  ctx.stroke();
+
+  // Ljusare träkärna
+  ctx.strokeStyle = "#a16207";
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.moveTo(-radius + 8, 0);
+  ctx.lineTo(radius - 8, 0);
+  ctx.stroke();
+
+  // Guldändar
+  ctx.fillStyle = "#facc15";
+  ctx.shadowColor = "#fde68a";
+  ctx.shadowBlur = 18;
+
+  ctx.beginPath();
+  ctx.arc(-radius, 0, 14, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(radius, 0, 14, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Liten guldspets
+  ctx.fillStyle = "#fff7ad";
+  ctx.beginPath();
+  ctx.arc(radius + 4, -4, 5, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.restore();
+}
+     else if (e.type === "heal") {
       ctx.fillStyle = "#86efac";
       for (let i=0;i<6;i++) ctx.fillRect(e.x-20+i*8, e.y-30*t-i*4, 4, 12);
     } else if (e.type === "cyclone") {

@@ -632,3 +632,101 @@ button.has-frame:disabled {
     width: 230px;
   }
 }
+#tiltScreen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  place-items: center;
+  background: radial-gradient(circle at top, #5a4635 0%, #16110d 75%);
+  color: #f5e2bd;
+  text-align: center;
+  padding: 24px;
+}
+
+.tiltCard {
+  max-width: 340px;
+  padding: 28px;
+  border-radius: 28px;
+  background: rgba(25,18,14,0.9);
+  border: 1px solid rgba(255,190,90,0.35);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+}
+
+.tiltIcon {
+  font-size: 72px;
+  font-weight: 1000;
+  color: #ffcf66;
+  animation: tiltSpin 1.8s ease-in-out infinite;
+}
+
+.tiltCard h2 {
+  margin: 8px 0;
+  font-size: 30px;
+}
+
+.tiltCard p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+@keyframes tiltSpin {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(28deg); }
+}
+
+/* Visa tilt-screen bara på små skärmar i stående läge */
+@media (max-width: 900px) and (orientation: portrait) {
+  #tiltScreen {
+    display: grid;
+  }
+
+  #gameShell {
+    display: none;
+  }
+}
+
+/* När mobilen är liggande: använd hela skärmen bättre */
+@media (max-width: 900px) and (orientation: landscape) {
+  canvas {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+  }
+
+  .topbar {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    gap: 5px;
+  }
+
+  .pill {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+
+  .leftPanel {
+    top: 60px;
+    left: 6px;
+  }
+
+  #menuButtons {
+    top: 60px;
+    right: 6px;
+  }
+
+  .bottomPanel {
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    padding: 8px;
+  }
+
+  button {
+    min-width: 76px;
+    padding: 7px 8px;
+    font-size: 12px;
+  }
+}

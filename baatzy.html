@@ -20,7 +20,7 @@
         <strong id="rollsLeft">3</strong>
       </div>
     </header>
-
+    <section class="players-bar" id="playersBar"></section>
     <section class="dice-area">
       <img src="images/baatzy/dice-board.png" alt="" class="dice-board" />
 
@@ -47,5 +47,10 @@
   </main>
 
   <script src="scripts/baatzy.js"></script>
+  <script type="module">
+import { markPageVisited } from "scripts/cosmetics.js";
+
+markPageVisited("baatzy");
+</script>
 </body>
 </html>

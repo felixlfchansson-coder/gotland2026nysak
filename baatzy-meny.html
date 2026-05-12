@@ -7,22 +7,106 @@
   <link rel="stylesheet" href="styles/baatzy-meny.css" />
 </head>
 <body>
+    <a href="spel.html" class="back-games-btn">
+    ⬅ Tillbaka till spelmeny
+    </a>
   <main class="menu-screen">
     <img src="images/baatzy/baatzy-logo.png" alt="Bäätzy" class="logo" />
 
     <section class="menu-card">
-      <h1>BÄÄTZY</h1>
-      <p>Kasta flocken. Lås dina får. Samla poäng.</p>
+  <h1>BÄÄTZY</h1>
+  <p>Kasta flocken. Lås dina får. Samla poäng.</p>
 
-      <a href="baatzy.html" class="play-btn">SPELA</a>
+  <div class="player-select">
+    <h2>Antal spelare</h2>
 
-      <div class="rules">
-        <h2>Regler</h2>
-        <p>Du får kasta upp till 3 gånger per runda.</p>
-        <p>Tryck på en tärning för att låsa den.</p>
-        <p>Välj en poängrad för att avsluta rundan.</p>
-      </div>
-    </section>
+    <div class="player-buttons">
+      <button class="player-count active" data-count="2">2</button>
+      <button class="player-count" data-count="3">3</button>
+      <button class="player-count" data-count="4">4</button>
+    </div>
+
+    <div id="playerNames" class="player-names"></div>
+  </div>
+
+  <button id="startGameBtn" class="play-btn">SPELA</button>
+
+  <div class="rules">
+    <h2>Regler</h2>
+    <p>Spela 2–4 personer på samma enhet.</p>
+    <p>Varje spelare kastar upp till 3 gånger per runda.</p>
+    <p>Tryck på en tärning för att låsa den.</p>
+  </div>
+</section>
+
+<script>
+  const playerNamesEl = document.getElementById("playerNames");
+  const playerCountButtons = document.querySelectorAll(".player-count");
+  const startGameBtn = document.getElementById("startGameBtn");
+
+  const avatars = [
+    "images/avatar/body-base.png",
+    "images/avatar/body-viridian.png",
+    "images/avatar/body-petrol.png",
+    "images/avatar/body-senap.png"
+  ];
+
+  let playerCount = 2;
+
+  function renderPlayerInputs() {
+    playerNamesEl.innerHTML = "";
+
+    for (let i = 0; i < playerCount; i++) {
+      const row = document.createElement("label");
+      row.className = "player-name-row";
+
+      row.innerHTML = `
+        <img src="${avatars[i]}" alt="">
+        <input 
+          type="text" 
+          maxlength="14"
+          placeholder="Spelare ${i + 1}" 
+          value="Spelare ${i + 1}"
+        />
+      `;
+
+      playerNamesEl.appendChild(row);
+    }
+  }
+
+  playerCountButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      playerCount = Number(button.dataset.count);
+
+      playerCountButtons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      renderPlayerInputs();
+    });
+  });
+
+  startGameBtn.addEventListener("click", () => {
+    const inputs = [...playerNamesEl.querySelectorAll("input")];
+
+    const players = inputs.map((input, index) => ({
+      name: input.value.trim() || `Spelare ${index + 1}`,
+      avatar: avatars[index],
+      scores: {}
+    }));
+
+    localStorage.setItem("baatzyPlayers", JSON.stringify(players));
+    localStorage.setItem("baatzyCurrentPlayer", "0");
+
+    window.location.href = "baatzy.html";
+  });
+
+  renderPlayerInputs();
+</script>
+<script type="module">
+import { markPageVisited } from "scripts/cosmetics.js";
+
+markPageVisited("baatzy-meny");
+</script>
   </main>
 </body>
 </html>

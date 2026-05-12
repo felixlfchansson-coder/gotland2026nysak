@@ -9,7 +9,80 @@ body {
   background: url("../images/baatzy/baatzy-bg.png") center / cover no-repeat;
   color: #2b1b0d;
 }
+.player-select {
+  margin: 18px 0;
+}
 
+.player-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.player-count {
+  min-height: 52px;
+  border: 3px solid #7b4b20;
+  border-radius: 16px;
+  background: #f7d88a;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #2b1b0d;
+}
+
+.player-count.active {
+  background: #5f9f28;
+  color: white;
+  box-shadow: 0 5px 0 #346315;
+}
+
+.player-names {
+  display: grid;
+  gap: 10px;
+}
+
+.player-name-row {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.5);
+  padding: 8px;
+  border-radius: 16px;
+  border: 2px solid #9c6a35;
+}
+.back-games-btn {
+ display: absolute;
+ position: absolute;
+ left: 5%;
+  margin: 22px auto;
+  padding: 16px 24px;
+  width: 10%;
+  border-radius: 20px;
+  background: #906604;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 7px 0 #5e2c01;
+}
+.player-name-row img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.player-name-row input {
+  width: 100%;
+  min-height: 46px;
+  border: 2px solid #8b5a2b;
+  border-radius: 12px;
+  padding: 0 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  background: #fff8df;
+  color: #2b1b0d;
+}
 .menu-screen {
   min-height: 100vh;
   padding: 24px 16px;

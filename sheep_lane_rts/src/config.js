@@ -12,16 +12,16 @@ export const CONFIG = {
 
   unitCap: 20,
   startGold: 90,
-  goldPerSecond: 4,
+  goldPerSecond: 6,
 
   startLevel: 1,
-  xpPerSecond: 1.2,
+  xpPerSecond: 1.9,
   xpFromUnitKill: 18,
   xpFromStructureDestroy: 120,
   levelXpBase: 90,
   levelXpGrowth: 45,
 
-  aiXpPerSecond: 1.2,
+  aiXpPerSecond: 2.9,
   midCaptureRadius: 420,
   midCaptureSeconds: 5.5,
   midCaptureMinUnits: 4,

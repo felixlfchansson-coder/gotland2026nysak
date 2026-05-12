@@ -1,6 +1,7 @@
 import { CONFIG, TEAM, ORDER } from "./config.js";
 import { FACTIONS } from "./factions.js";
 import { Unit, Structure, Effect, Projectile } from "./entities.js";
+import { markShaolinHardWin } from "../../scripts/cosmetics.js";
 
 const DIFFICULTY = {
   easy:   { enemySpawnMult: 1.35, aiXpMult: 1.05, enemyGoldMult: 0.85 },
@@ -542,18 +543,43 @@ export class Game {
     u.abilityTimer = 5.5 + Math.random() * 2;
 
     const enemies = this.units.filter(o => this.isEnemy(u,o) && Math.abs(o.x-u.x) < 180 && !o.dead);
-    if (u.def.ability === "cyclone") {
-      this.effects.push(new Effect("cyclone", u.x, u.y - 55, 1.0, {radius:170}));
-      enemies.forEach(e => { this.damage(e, 22, u); e.stun = Math.max(e.stun, 0.7); });
-    }
+   if (u.def.ability === "cyclone") {
+  this.effects.push(
+    new Effect("woolkongStaffSpin", u.x, u.y - 72, 1.05, {
+      dir: u.dir,
+      radius: 95
+    })
+  );
+
+  enemies.forEach(e => {
+    this.damage(e, 22, u);
+    e.stun = Math.max(e.stun, 0.7);
+  });
+}
     if (u.def.ability === "susano") {
-      this.effects.push(new Effect("susano", u.x + u.dir*90, u.y - 75, 0.65));
+      this.effects.push(
+  new Effect("susano", u.x + u.dir * 110, u.y - 78, 0.7, {
+    dir: u.dir,
+    color: "#b84cff"
+  })
+);
       enemies.forEach(e => this.damage(e, 45, u));
     }
     if (u.def.ability === "storm" || u.def.ability === "lightningStorm") {
-      this.effects.push(new Effect("lightning", u.x + u.dir*120, u.y - 105, 0.65));
-      enemies.forEach(e => { this.damage(e, 34, u); e.stun = Math.max(e.stun, 0.35); });
-    }
+  this.effects.push(
+    new Effect("stormOrbReturn", u.x, u.y - 78, 1.05, {
+      dir: u.dir,
+      distance: 230,
+      color: "#0b2f8a",
+      glow: "#7dd3fc"
+    })
+  );
+
+  enemies.forEach(e => {
+    this.damage(e, 34, u);
+    e.stun = Math.max(e.stun, 0.35);
+  });
+}
   }
 
   updateProjectiles(dt) {
@@ -594,10 +620,25 @@ export class Game {
     this.cameraX += (desired - this.cameraX) * Math.min(1, dt * 2.8);
   }
 
-  checkWinLose() {
-    const enemyBase = this.structures.find(s => s.key === "enemyBase");
-    const playerBase = this.structures.find(s => s.key === "playerBase");
-    if (enemyBase.dead) { this.gameOver = "VICTORY"; }
-    if (playerBase.dead) { this.gameOver = "DEFEAT"; }
+ checkWinLose() {
+  const enemyBase = this.structures.find(s => s.key === "enemyBase");
+  const playerBase = this.structures.find(s => s.key === "playerBase");
+
+  if (enemyBase.dead) {
+
+    // Lee Sin unlock
+    if (
+      this.selectedFaction === "shaolin" &&
+      this.difficulty === "hard"
+    ) {
+      markShaolinHardWin();
+    }
+
+    this.gameOver = "VICTORY";
   }
+
+  if (playerBase.dead) {
+    this.gameOver = "DEFEAT";
+  }
+}
 }

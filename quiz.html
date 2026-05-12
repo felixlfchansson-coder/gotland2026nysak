@@ -87,5 +87,16 @@
   <script src="scripts/main.js"></script>
   <script src="scripts/quiz.js"></script>
   <script src="scripts/profilebox.js"></script>
+  <script type="module">
+import { markPageVisited, markQuizPlayed } from "./scripts/cosmetics.js";
+
+markPageVisited("quiz");
+
+const startBtn = document.getElementById("startBtn");
+
+startBtn?.addEventListener("click", () => {
+  markQuizPlayed();
+});
+</script>
 </body>
 </html>

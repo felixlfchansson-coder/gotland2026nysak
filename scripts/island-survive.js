@@ -1,3 +1,4 @@
+import { markFlyhageCharacterWin } from "./scripts/cosmetics.js";
 document.addEventListener('DOMContentLoaded', () => {
   let sheep = {};
 
@@ -342,10 +343,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const success = Math.random();
 
     if (success > 0.5) {
-      sheep.log.push(`🎉 ${sheep.name} flydde från hagen!`);
-      disableActions();
-      renderUI();
-    } else {
+
+  sheep.log.push(`🎉 ${sheep.name} flydde från hagen!`);
+
+  // Sorting Hat progress
+  markFlyhageCharacterWin(sheep.name);
+
+  disableActions();
+  renderUI();
+
+} else {
       sheep.health -= 20;
       sheep.energy -= 15;
       sheep.courage -= 10;

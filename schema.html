@@ -149,5 +149,17 @@
   <script src="scripts/main.js"></script>
   <script src="scripts/profilebox.js"></script>
   <script src="scripts/logout.js"></script>
+
+ <script type="module">
+import { markPageVisited, addCounter } from "./scripts/cosmetics.js";
+
+markPageVisited("schema");
+
+const timeSheep = document.querySelector(".sheep-aside");
+
+timeSheep?.addEventListener("click", () => {
+  addCounter("timeSheep");
+});
+</script>
 </body>
 </html>

@@ -621,4 +621,8 @@ startBtn.addEventListener("click", handleStartClick);
 nextBtn.addEventListener("click", nextQuestion);
 restartBtn.addEventListener("click", restartQuiz);
 
+import { markQuizPlayed } from "cosmetics.js";
+
+markQuizPlayed();
+
 restartQuiz();

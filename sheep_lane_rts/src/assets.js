@@ -20,7 +20,7 @@ export const SPRITES = {
   enemyBase: "red_base.png",
   blueGate: "blue_gate.png",
   redGate: "red_gate.png",
-  midTower: "mid_tower.png",
+  midTower: "mid_gate.png",
 
   // Standard
   standardsword1: "standardsword1.png",
