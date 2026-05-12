@@ -628,11 +628,11 @@ export class Game {
 
     // Lee Sin unlock
     if (
-      this.selectedFaction === "shaolin" &&
-      this.difficulty === "hard"
-    ) {
-      markShaolinHardWin();
-    }
+  this.factionKey === "shaolin" &&
+  this.difficultyKey === "hard"
+) {
+  markShaolinHardWin();
+}
 
     this.gameOver = "VICTORY";
   }
