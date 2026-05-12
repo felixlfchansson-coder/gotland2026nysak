@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sheep Lane RTS</title>
+
+  <style>
+   .game-page {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, #5a4635 0%, #2e221b 45%, #16110d 100%);
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.game-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.025) 0px,
+      rgba(255,255,255,0.025) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.start-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 26px;
+  padding: 40px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.menu {
+  position: relative;
+  background: rgba(25, 18, 14, 0.72);
+  border: 1px solid rgba(255, 190, 90, 0.25);
+  border-radius: 34px;
+  padding: 26px;
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  animation: fadeUp 0.6s ease;
+}
+
+.menu::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,190,90,0.12),
+      transparent 70%
+    );
+  z-index: -1;
+}
+
+.start-image {
+  display: block;
+  width: min(1100px, 92vw);
+  border-radius: 28px;
+  border: 2px solid rgba(230, 170, 70, 0.6);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.55),
+    0 0 25px rgba(255,190,90,0.16);
+  transition: 0.3s ease;
+}
+
+.start-image:hover {
+  transform: scale(1.01);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  margin-top: 26px;
+}
+
+.start-game-btn,
+.back-games-btn {
+  text-decoration: none;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(75,55,42,0.95),
+      rgba(42,28,20,0.95)
+    );
+  color: #f0b443;
+  border: 1px solid rgba(255,190,90,0.45);
+  border-radius: 18px;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  transition: 0.25s ease;
+  font-weight: bold;
+}
+
+.start-game-btn {
+  padding: 24px 60px;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-width: 320px;
+}
+
+.back-games-btn {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  color: #f5e2bd;
+}
+
+.start-game-btn:hover,
+.back-games-btn:hover {
+  transform: translateY(-4px);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(95,70,50,1),
+      rgba(52,36,25,1)
+    );
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.45),
+    0 0 18px rgba(255,190,90,0.22);
+}
+
+.start-game-btn:active,
+.back-games-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 700px) {
+  .start-page {
+    padding: 18px;
+  }
+
+  .menu {
+    padding: 14px;
+    border-radius: 24px;
+  }
+
+  .start-image {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .content {
+    margin-top: 20px;
+  }
+
+  .start-game-btn {
+    width: 100%;
+    min-width: unset;
+    font-size: 1.4rem;
+    padding: 18px 28px;
+  }
+
+  .back-games-btn {
+    width: 90%;
+    text-align: center;
+  }
+}
+  </style>
+</head>
+
+<body class="game-page">
+<main class="start-page">
+  <div class="menu">
+
+    <!-- SPLASH IMAGE -->
+    <img
+      src="assets/ui/splash.png"
+      class="start-image"
+      alt="Splash Image"
+    >
+
+    <div class="content">
+      
+      <button class="start-game-btn" onclick="startGame()">
+        Starta Spel
+      </button>
+    </div>
+
+  </div>
+  <body class="game-page">
+
+    <a href="../spel.html" class="back-games-btn">
+    ⬅ Tillbaka till spelmeny
+    </a>
+
+  </main>
+
+  <script>
+    function startGame(){
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>

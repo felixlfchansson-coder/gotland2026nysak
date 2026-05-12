@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gotland 2026 | Motvilliga Quizet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/quiz.css" />
+  <link rel="stylesheet" href="styles/side_menu.css" />
+</head>
+<body class="quiz-page">
+  <div class="aurora aurora-one"></div>
+  <div class="aurora aurora-two"></div>
+  <div class="bg-noise"></div>
+
+  <div class="page-shell">
+   <div class="side-menu">
+  <button class="hamburger" aria-label="Öppna meny">
+    ☰
+  </button>
+
+  <nav class="side-menu-panel">
+    <a href="profile.html">Profil</a>
+    <a href="index.html">Hem</a>
+    <a href="schema.html">Schema</a>
+    <a href="glassmagasin.html">Bäänitha?</a>
+    <a href="token-hs.html">Tokens</a>
+
+    <button class="logout-button" onclick="logoutUser()">
+      Logga ut
+    </button>
+  </nav>
+</div>
+
+    <main class="app" id="app">
+      <div class="quiz-host">
+        <img
+          src="images/jonblundfaret.png"
+          alt="Jonblundfåret"
+          class="host-sheep"
+        />
+      </div>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Interaktivt test</p>
+          <h1 id="title">Motvilliga Quizet</h1>
+        </div>
+        <div class="hud" aria-label="Quizstatus">
+          <span id="progress">Fråga 0 / 30</span>
+          <span id="score">Poäng: 0</span>
+          <span id="timer">Tid: -</span>
+        </div>
+      </header>
+      <div class="meter">
+      <span></span>
+      </div>
+      <div class="anger-meter">
+      <span id="angerFill"></span>
+      </div>
+
+      <section class="card start-screen" id="startScreen">
+        <p class="mood" id="startMood">Jag vill egentligen inte börja.</p>
+        <h2>Du måste verkligen mena det.</h2>
+        <p id="startText">Tryck på knappen om du absolut måste. Jag tänker inte göra det lätt.</p>
+        <button id="startBtn" class="next-btn">Starta quizet</button>
+      </section>
+
+      <section class="card angry-level-0 hidden" id="card" aria-live="polite">
+        <p class="mood" id="mood">Okej. Vi gör det här. Svara inte för bra bara.</p>
+        <h2 id="question">Laddar fråga...</h2>
+        <div class="answers" id="answers"></div>
+        <div class="feedback" id="feedback"></div>
+        <button id="nextBtn" class="next-btn hidden">Nästa fråga</button>
+      </section>
+
+      <section id="result" class="result hidden">
+        <p class="eyebrow">Resultat</p>
+        <h2>Klart.</h2>
+        <p id="finalText"></p>
+        <button id="restartBtn" class="next-btn">Förstör mig igen</button>
+      </section>
+    </main>
+  </div>
+
+  <script src="scripts/main.js"></script>
+  <script src="scripts/quiz.js"></script>
+  <script src="scripts/profilebox.js"></script>
+</body>
+</html>

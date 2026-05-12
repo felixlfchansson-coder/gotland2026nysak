@@ -1,0 +1,436 @@
+.game-page {
+  background:
+    linear-gradient(
+      rgba(23,15,10,0.25),
+      rgba(23,15,10,0.72)
+    ),
+    url("../images/farhage-bakgrund.png")
+    center/cover fixed no-repeat;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.game-container {
+  width: min(1250px, 94vw);
+  margin: 40px auto;
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(27,19,13,0.76);
+  border: 2px solid rgba(215,180,106,0.35);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(4px);
+}
+
+.game-layout {
+
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 24px;
+
+  align-items: start;
+}
+
+.main-game-content {
+  min-width: 0;
+}
+
+.escape-plan-aside {
+  position: sticky;
+  top: 30px;
+}
+
+/* =========================
+   TITLES
+========================= */
+
+.game-container h1 {
+
+  margin: 0 0 16px;
+
+  color: #fff6d8;
+
+  font-size: clamp(2.2rem, 7vw, 4rem);
+
+  text-align: center;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 3px 10px rgba(0,0,0,0.95),
+    0 0 18px rgba(0,0,0,0.75),
+    0 0 28px rgba(0,0,0,0.55);
+}
+
+.game-intro {
+
+  max-width: 720px;
+
+  margin: 0 auto 28px;
+
+  text-align: center;
+
+  font-size: 1.15rem;
+
+  line-height: 1.7;
+
+  color: #fff8e7;
+
+  text-shadow:
+    0 2px 8px rgba(0,0,0,0.95);
+
+  font-weight: 600;
+}
+
+/* =========================
+   SHEEP IMAGE
+========================= */
+
+.sheep-game-art {
+  width: min(240px, 70vw);
+  margin: 10px auto 22px;
+  display: block;
+
+  filter:
+    drop-shadow(
+      0 16px 28px rgba(0,0,0,0.55)
+    );
+
+  animation:
+    sheepFloat 3s ease-in-out infinite;
+}
+
+@keyframes sheepFloat {
+
+  0%,100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* =========================
+   INFO BOXES
+========================= */
+
+.sheep-type-box,
+.inventory-box {
+  margin: 20px auto;
+  padding: 16px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(244,229,197,0.95);
+
+  color: #2b1a10;
+
+  border:
+    2px solid var(--gold);
+
+  box-shadow: var(--shadow);
+
+  text-align: center;
+}
+
+.sheep-type-box h2,
+.inventory-box h2 {
+  margin-top: 0;
+}
+
+/* =========================
+   FLYKTPLAN
+========================= */
+
+.escape-plan-box {
+
+  padding: 18px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(255,228,225,0.95);
+
+  color: #2b1a10;
+
+  border:
+    2px solid #ff91b3;
+
+  box-shadow: var(--shadow);
+}
+
+.escape-plan-box h2 {
+
+  margin-top: 0;
+
+  color: #c53b6c;
+
+  text-align: center;
+}
+
+.escape-plan-box p {
+
+  margin: 0;
+
+  font-weight: bold;
+
+  line-height: 1.7;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats-panel {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 14px;
+
+  margin: 28px 0;
+}
+
+.stat-card {
+
+  padding: 16px 12px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(244,229,197,0.96),
+      rgba(215,180,106,0.88)
+    );
+
+  color: #2b1a10;
+
+  box-shadow: var(--shadow);
+
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin: 0 0 8px;
+}
+
+.stat-card span {
+
+  font-size: 1.7rem;
+
+  font-weight: bold;
+}
+
+.stat-good {
+  color: #2f7d32;
+}
+
+.stat-warning {
+  color: #b87300;
+}
+
+.stat-danger {
+  color: #b3261e;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.action-panel {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin: 26px 0;
+}
+
+.action-panel button {
+
+  width: 100%;
+}
+
+.action-panel button,
+#restart-btn {
+
+  padding: 12px 22px;
+
+  border-radius: 999px;
+
+  border:
+    2px solid rgba(215,180,106,0.75);
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--purple-2),
+      var(--purple)
+    );
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  box-shadow: var(--shadow);
+
+  transition: 0.3s ease;
+}
+
+.action-panel button:hover,
+#restart-btn:hover {
+
+  background: var(--gold);
+
+  color: #2b1a10;
+
+  transform:
+    translateY(-3px)
+    scale(1.04);
+}
+
+.action-panel button:disabled {
+
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+/* =========================
+   LOG
+========================= */
+
+.log-box {
+
+  margin-top: 26px;
+
+  padding: 20px;
+
+  min-height: 160px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(244,229,197,0.95);
+
+  color: #2b1a10;
+
+  text-align: left;
+
+  line-height: 1.55;
+
+  font-weight: bold;
+
+  box-shadow: var(--shadow);
+}
+
+/* =========================
+   RESTART
+========================= */
+
+#restart-btn {
+
+  display: none;
+
+  margin-top: 20px;
+}
+
+
+.menu-btn {
+
+  display: inline-block;
+
+  margin-top: 18px;
+
+  padding: 12px 24px;
+
+  border-radius: 999px;
+
+  border:
+    2px solid rgba(215,180,106,0.75);
+
+  background:
+    linear-gradient(
+      180deg,
+      #5b4632,
+      #3d2b1f
+    );
+
+  color: #fff8e7;
+
+  font-weight: bold;
+
+  text-decoration: none;
+
+  box-shadow: var(--shadow);
+
+  transition: 0.3s ease;
+}
+
+.menu-btn:hover {
+
+  background: var(--gold);
+
+  color: #2b1a10;
+
+  transform:
+    translateY(-3px)
+    scale(1.04);
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 850px) {
+
+  .stats-panel {
+
+    grid-template-columns:
+      repeat(6, 1fr);
+  }
+
+  .action-panel {
+
+    flex-direction: row;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+  }
+
+  .action-panel button {
+
+    width: auto;
+  }
+}
+
+@media (min-width: 950px) {
+
+  .game-layout {
+
+    grid-template-columns:
+      1fr 320px;
+  }
+
+  .escape-plan-aside {
+
+    position: sticky;
+
+    top: 30px;
+  }
+}

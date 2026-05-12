@@ -1,0 +1,124 @@
+.games-page {
+  width: min(1150px, 94vw);
+  margin: 36px auto 70px;
+}
+
+.intro {
+  text-align: center;
+  padding: 34px 24px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(27,19,13,.82), rgba(82,47,95,.42));
+  border: 2px solid rgba(215,180,106,.28);
+  box-shadow: var(--shadow);
+}
+
+.intro h2 {
+  margin: 0 0 12px;
+  color: var(--gold);
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+}
+
+.intro p {
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--cream);
+  line-height: 1.6;
+  font-size: 1.12rem;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 34px;
+}
+
+.game-card {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  padding: 16px;
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.18)),
+    rgba(27, 19, 13, 0.78);
+  border: 2px solid rgba(215, 180, 106, 0.28);
+  box-shadow: var(--shadow);
+  color: var(--cream);
+  text-align: center;
+  text-decoration: none;
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle, rgba(215,180,106,.22), transparent 45%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+}
+
+.game-card:hover {
+  transform: translateY(-8px) scale(1.025);
+  border-color: var(--gold);
+  box-shadow: 0 22px 60px rgba(0,0,0,.45);
+}
+
+.game-card:hover::before {
+  opacity: 1;
+}
+
+.game-card img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.game-card h3,
+.game-card p {
+  position: relative;
+  z-index: 1;
+}
+
+.game-card h3 {
+  margin: 0 0 10px;
+  color: var(--gold);
+  font-size: 1.65rem;
+}
+
+.game-card p {
+  margin: 0;
+  line-height: 1.5;
+  color: rgba(244,229,197,.9);
+}
+
+.game-placeholder {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  background:
+    linear-gradient(135deg, rgba(244,229,197,.12), rgba(215,180,106,.08));
+  border: 2px dashed rgba(215, 180, 106, 0.45);
+  font-size: 4rem;
+  color: var(--gold);
+}
+
+.locked {
+  opacity: .65;
+  filter: grayscale(.25);
+}
+
+@media (max-width: 950px) {
+  .games-grid {
+    grid-template-columns: 1fr;
+  }
+}

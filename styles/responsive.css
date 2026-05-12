@@ -1,0 +1,74 @@
+@media (max-width: 1100px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scene {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .fakta { grid-column: 1 / span 3; }
+  .schema { grid-column: 4 / span 3; }
+  .andakt { grid-column: 1 / span 3; }
+  .spel { grid-column: 4 / span 3; }
+  .quiz { grid-column: 1 / span 3; }
+  .bibel { grid-column: 4 / span 3; }
+
+  .cta-row {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-content {
+    gap: 10px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 900px) {
+  .games-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 850px) {
+  .schema-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sheep-aside {
+    position: static;
+  }
+
+  .sheep-image {
+    width: 220px;
+  }
+
+  .event {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-shell {
+    width: min(96vw, 1400px);
+    padding-top: 12px;
+  }
+
+  .scene {
+    grid-template-columns: 1fr;
+  }
+
+  .scene > * {
+    grid-column: auto !important;
+  }
+
+  .intro p {
+    font-size: 1rem;
+  }
+
+  .quote-bar {
+    font-size: 1rem;
+  }
+}

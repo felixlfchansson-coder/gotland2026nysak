@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Sheep Faction War MVP</title>
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <div id="gameShell">
+    <canvas id="game" width="1280" height="720"></canvas>
+
+    <div id="hud">
+      <div id="startMenu" class="startMenu">
+        <div class="startCard">
+          <img id="menuLogo" src="assets/ui/sheepline_logo.png" alt="SheepLine" />
+          <h1>SheepLine</h1>
+          <p>Välj AI-svårighetsgrad och starta lane war.</p>
+          <div class="difficultyButtons">
+            <button data-difficulty="easy" onclick="window.selectSheepDifficulty && window.selectSheepDifficulty('easy')">Easy<small>Lugnare AI</small></button>
+            <button data-difficulty="normal" class="active selected" onclick="window.selectSheepDifficulty && window.selectSheepDifficulty('normal')">Normal<small>Balanserad AI</small></button>
+            <button data-difficulty="hard" onclick="window.selectSheepDifficulty && window.selectSheepDifficulty('hard')">Hard<small>Snabbare AI</small></button>
+          </div>
+          <button id="startGameBtn" class="startBtn" onclick="window.startSheepGame && window.startSheepGame()">START GAME</button>
+        </div>
+        <button class="backBtn" onclick="window.location.href='../spel.html'">
+  ← Tillbaka
+</button>
+      </div>
+
+      <div class="topbar">
+        <div class="pill">Guld: <span id="gold">0</span></div>
+        <div class="pill">Player Lvl: <span id="level">1</span></div>
+        <div class="pill">XP: <span id="xp">0/100</span></div>
+        <div class="pill">AI Lvl: <span id="aiLevel">1</span></div>
+        <div class="pill">Wave: <span id="wave">1</span></div>
+        <div class="pill">Units: <span id="unitCap">0/20</span></div>
+        <div class="pill">Faction: <span id="factionName">Standard</span></div>
+      </div>
+
+      <div class="leftPanel">
+        <button class="mode active" id="defendBtn">DEFEND</button>
+        <button class="mode" id="attackBtn">ATTACK</button>
+      </div>
+
+      <div id="menuButtons">
+      <button id="restartBtn">RESTART</button>
+      <button id="backMenuBtn">MENU</button>
+    </div>
+
+      <div class="bottomPanel">
+        <div class="factions" id="factionButtons"></div>
+        <div class="units" id="unitButtons"></div>
+      </div>
+
+      <div class="choiceOverlay is-closed" id="factionChoiceOverlay" hidden>
+        <div class="choiceCard">
+          <h2>Standardfår räcker inte längre...</h2>
+          <p>Välj EN extra falang för resten av matchen.</p>
+          <div class="choiceButtons" id="factionChoiceButtons"></div>
+        </div>
+      </div>
+
+      <div id="message"></div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

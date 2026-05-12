@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spel | Gotland 2026</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+   <div class="side-menu">
+  <button class="hamburger" aria-label="Öppna meny">
+    ☰
+  </button>
+
+  <nav class="side-menu-panel">
+    <a href="profile.html">Profil</a>
+    <a href="index.html">Hem</a>
+    <a href="schema.html">Schema</a>
+    <a href="glassmagasin.html">Bäänitha?</a>
+    <a href="token-hs.html">Tokens</a>
+
+    <button class="logout-button" onclick="logoutUser()">
+      Logga ut
+    </button>
+  </nav>
+</div>
+
+    <main class="games-page">
+
+      <section class="intro">
+        <h2>Spel</h2>
+        <p>
+          Här hittar du små spel med Gotland-, får- och lägerkänsla.
+          Klarar du utmaningarna?
+        </p>
+      </section>
+
+      <section class="games-grid">
+
+        <a href="flyhage.html" class="game-card">
+          <img src="images/flyhagen-start.png" alt="Fly från hagen">
+          <h3>Fly från hagen</h3>
+          <p>
+            Välj ett får, samla saker och försök fly från hagen.
+          </p>
+        </a>
+
+        <a href="sheep_lane_rts/meny.html" class="game-card">
+          <img src="sheep_lane_rts/assets/ui/splash.png" alt="Sheep Lane RTS">
+          <h3>SheepLine</h3>
+          <p>
+            Bygg får-armén, försvara vägen och stoppa vargfåren.
+          </p>
+        </a>
+
+        <a href="woolborn/index.html" class="game-card">
+        <img src="images/splash_woolborn.png" alt="Woolborn">
+        <h3>Woolborn</h3>
+        <p>
+          Välj din väg som Assassin, Mage eller Shaolin och upptäck kraterns hemlighet.
+        </p>
+      </a>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="scripts/main.js"></script>
+  <script src="scripts/profilebox.js"></script>
+  <script src="scripts/logout.js"></script>
+</body>
+
+</html>

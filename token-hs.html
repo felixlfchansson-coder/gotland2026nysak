@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Upplåsningar & Tokens</title>
+
+  <link rel="stylesheet" href="styles/token-hs.css" />
+</head>
+
+<body class="token-page">
+
+  <main class="token-shell">
+
+    <header class="token-header">
+      <a href="index.html" class="back-btn">⬅ Hem</a>
+
+      <h1>Upplåsningar & Tokens</h1>
+
+      <p>
+        Välkommen <strong class="player-name">Spelare</strong>!
+        Spela spel, klara utmaningar och hitta QR-koder för att låsa upp
+        avatar-delar och samla achievements.
+      </p>
+    </header>
+
+    <section class="highscore-panel">
+      <h2>🏅 Global Highscore</h2>
+
+      <p class="panel-intro">
+        Här visas de bästa resultaten från alla spelare.
+      </p>
+
+      <div class="highscore-grid">
+
+        <article class="highscore-card" data-game="flyhage">
+          <h3>Flyhage</h3>
+
+          <div class="score-list" id="flyhageHighscore">
+            <div class="score-row empty-score">
+              <span>Laddar...</span>
+              <strong>-</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="highscore-card" data-game="sheepline">
+          <h3>Sheepline</h3>
+
+          <div class="score-list" id="sheeplineHighscore">
+            <div class="score-row empty-score">
+              <span>Easy</span>
+              <strong>-</strong>
+            </div>
+
+            <div class="score-row empty-score">
+              <span>Normal</span>
+              <strong>-</strong>
+            </div>
+
+            <div class="score-row empty-score">
+              <span>Hard</span>
+              <strong>-</strong>
+            </div>
+
+            <div class="score-row empty-score">
+              <span>Insane</span>
+              <strong>-</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="highscore-card" data-game="quiz">
+          <h3>Quiz</h3>
+
+          <div class="score-list" id="quizHighscore">
+            <div class="score-row empty-score">
+              <span>Laddar...</span>
+              <strong>-</strong>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="token-layout">
+
+      <div class="left-column">
+
+        <section class="panel">
+          <h2>🔒 Avatar-upplåsningar</h2>
+
+          <p class="panel-intro">
+            Samla och lås upp avatar-delar genom spel, achievements,
+            ledarutmaningar eller gömda QR-koder.
+          </p>
+
+          <h3>Glasögon</h3>
+
+          <div class="item-grid" id="glassesUnlockGrid">
+
+            <article class="unlock-item locked" data-unlock-id="glasses_doffy">
+              <img src="images/avatar/glasses/doffy.png" alt="Doffy">
+              <h4>Doffy</h4>
+              <span class="tag qr">QR-kod</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="glasses_harry_potter">
+              <img src="images/avatar/glasses/harry-potter.png" alt="Harry Potter">
+              <h4>Harry Potter</h4>
+              <span class="tag achievement">Achievement</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="glasses_hawaii">
+              <img src="images/avatar/glasses/hawaii.png" alt="Hawaii">
+              <h4>Hawaii</h4>
+              <span class="tag leader">Ledare</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="glasses_lee_sin">
+              <img src="images/avatar/glasses/lee-sin.png" alt="Lee Sin">
+              <h4>Lee Sin</h4>
+              <span class="tag achievement">Achievement</span>
+            </article>
+
+            <article class="unlock-item unlocked" data-unlock-id="glasses_sunglasses">
+              <img src="images/avatar/glasses/sunglasses.png" alt="Solglasögon">
+              <h4>Solglasögon</h4>
+              <span class="tag start">Start</span>
+            </article>
+
+          </div>
+
+          <h3>Huvudprydnader</h3>
+
+          <div class="item-grid" id="hatUnlockGrid">
+
+            <article class="unlock-item locked" data-unlock-id="hat_cowboy">
+              <img src="images/avatar/hats/cowboy.png" alt="Cowboy">
+              <h4>Cowboy</h4>
+              <span class="tag qr">QR-kod</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="hat_fez">
+              <img src="images/avatar/hats/fez.png" alt="Fez">
+              <h4>Fez</h4>
+              <span class="tag leader">Ledare</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="hat_sortinghat">
+              <img src="images/avatar/hats/sortinghat.png" alt="Sorting Hat">
+              <h4>Sorting Hat</h4>
+              <span class="tag achievement">Achievement</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="hat_strawhat">
+              <img src="images/avatar/hats/strawhat.png" alt="Stråhatt">
+              <h4>Stråhatt</h4>
+              <span class="tag qr">QR-kod</span>
+            </article>
+
+            <article class="unlock-item unlocked" data-unlock-id="hat_tophat">
+              <img src="images/avatar/hats/tophat.png" alt="Topphatt">
+              <h4>Topphatt</h4>
+              <span class="tag start">Start</span>
+            </article>
+
+          </div>
+
+          <h3>Kroppar</h3>
+
+          <div class="item-grid" id="bodyUnlockGrid">
+
+            <article class="unlock-item unlocked" data-unlock-id="body_base">
+              <img src="images/avatar/body-base.png" alt="Bas">
+              <h4>Bas</h4>
+              <span class="tag start">Start</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="body_black">
+              <img src="images/avatar/body-black.png" alt="Svart">
+              <h4>Svart</h4>
+              <span class="tag achievement">Achievement</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="body_crimson">
+              <img src="images/avatar/body-crimson.png" alt="Crimson">
+              <h4>Crimson</h4>
+              <span class="tag achievement">Achievement</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="body_magenta">
+              <img src="images/avatar/body-magenta.png" alt="Magenta">
+              <h4>Magenta</h4>
+              <span class="tag qr">QR-kod</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="body_petrol">
+              <img src="images/avatar/body-petrol.png" alt="Petrol">
+              <h4>Petrol</h4>
+              <span class="tag achievement">Achievement</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="body_senap">
+              <img src="images/avatar/body-senap.png" alt="Senap">
+              <h4>Senap</h4>
+              <span class="tag leader">Ledare</span>
+            </article>
+
+            <article class="unlock-item locked" data-unlock-id="body_viridian">
+              <img src="images/avatar/body-viridian.png" alt="Viridian">
+              <h4>Viridian</h4>
+              <span class="tag achievement">Achievement</span>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="panel small-panel">
+          <h2>Så låser du upp</h2>
+
+          <div class="info-list">
+            <p><strong>🟢 Start:</strong> Upplåst från början.</p>
+            <p><strong>⚔ Achievement:</strong> Klara spelutmaningar.</p>
+            <p><strong>🟣 QR-kod:</strong> Hitta fysiska QR-koder.</p>
+            <p><strong>🔵 Ledare:</strong> Belöning från ledare.</p>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="right-column">
+
+        <section class="panel">
+          <h2>🏆 Achievement Tokens</h2>
+
+          <p class="panel-intro">
+            Samla achievements och visa upp dina bragder.
+          </p>
+
+          <div class="token-grid" id="achievementGrid">
+
+            <article class="token-card locked" data-achievement-id="flyhage_escape">
+              <img src="images/tokens/flyktmastare.png" alt="Flyktmästare">
+              <h4>Flyktmästare</h4>
+              <p>Fly från hagen.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="flyhage_fast_escape">
+              <img src="images/tokens/snabb-far.png" alt="Snabb Får">
+              <h4>Snabb Får</h4>
+              <p>Flydde på 5 dagar eller mindre.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="sheepline_hard">
+              <img src="images/tokens/sheepline-hard.png" alt="Sheepline Hard">
+              <h4>Sheepline Hard</h4>
+              <p>Klara Sheepline på Hard.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="quiz_highscore">
+              <img src="images/tokens/quizmastare.png" alt="Quizmästare">
+              <h4>Quizmästare</h4>
+              <p>Få högsta quizpoängen.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="woolborn_easy">
+              <img src="images/tokens/woolborn-easy.png" alt="Woolborn Easy">
+              <h4>Woolborn Easy</h4>
+              <p>Klara Woolborn på Easy.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="woolborn_normal">
+              <img src="images/tokens/woolborn-normal.png" alt="Woolborn Normal">
+              <h4>Woolborn Normal</h4>
+              <p>Klara Woolborn på Normal.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="woolborn_hard">
+              <img src="images/tokens/ullkrigare.png" alt="Woolborn Hard">
+              <h4>Woolborn Hard</h4>
+              <p>Klara Woolborn på Hard.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="woolborn_insane">
+              <img src="images/tokens/legend.png" alt="Woolborn Insane">
+              <h4>Legend</h4>
+              <p>Klara Woolborn på Insane.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="woolborn_shaolin">
+              <img src="images/tokens/shaolin.png" alt="Shaolin">
+              <h4>Shaolin</h4>
+              <p>Klara äventyret med Shaolin.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="woolborn_assassin">
+              <img src="images/tokens/assassin.png" alt="Assassin">
+              <h4>Assassin</h4>
+              <p>Klara äventyret med Assassin.</p>
+            </article>
+
+            <article class="token-card locked" data-achievement-id="woolborn_mage">
+              <img src="images/tokens/mage.png" alt="Mage">
+              <h4>Mage</h4>
+              <p>Klara äventyret med Mage.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>🤝 Ledarnas utmaningar</h2>
+
+          <p class="panel-intro">
+            Ledarna kan belöna <strong class="player-name">spelaren</strong>
+            för fina handlingar och goda insatser.
+          </p>
+
+          <div class="challenge-list" id="leaderChallengeList">
+
+            <article class="challenge-card locked" data-challenge-id="leader_thankful_3">
+              <div class="challenge-icon">🙏</div>
+
+              <div>
+                <h4>Tackmästaren</h4>
+                <p>Spontant tackat tre gånger.</p>
+              </div>
+
+              <span class="reward qr">QR-kod</span>
+            </article>
+
+            <article class="challenge-card locked" data-challenge-id="leader_helper">
+              <div class="challenge-icon">🤝</div>
+
+              <div>
+                <h4>Hjälte</h4>
+                <p>Hjälpt någon utan att bli ombedd.</p>
+              </div>
+
+              <span class="reward qr">QR-kod</span>
+            </article>
+
+            <article class="challenge-card locked" data-challenge-id="leader_good_friend">
+              <div class="challenge-icon">💛</div>
+
+              <div>
+                <h4>God kompis</h4>
+                <p>Inkluderat någon som stod utanför.</p>
+              </div>
+
+              <span class="reward qr">QR-kod</span>
+            </article>
+
+            <article class="challenge-card locked" data-challenge-id="leader_cleanup">
+              <div class="challenge-icon">🧹</div>
+
+              <div>
+                <h4>Diskret hjälte</h4>
+                <p>Hjälpt till att städa utan att någon bad om det.</p>
+              </div>
+
+              <span class="reward qr">QR-kod</span>
+            </article>
+
+            <article class="challenge-card locked" data-challenge-id="leader_extraordinary">
+              <div class="challenge-icon">✨</div>
+
+              <div>
+                <h4>Extraordinär</h4>
+                <p>Gjort något extra fantastiskt.</p>
+              </div>
+
+              <span class="reward mystery">???</span>
+              <span class="reward qr">QR-kod</span>
+            </article>
+
+          </div>
+        </section>
+
+      </div>
+
+    </section>
+
+    <footer class="token-footer">
+      <p>Fortsätt spela, var snäll och utforska.</p>
+      <strong><span class="player-name">Spelare</span>, Sheep is proud of you!</strong>
+    </footer>
+
+  </main>
+
+  <script src="scripts/token-hs.js"></script>
+</body>
+</html>

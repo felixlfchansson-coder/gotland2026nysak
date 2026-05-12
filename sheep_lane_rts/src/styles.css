@@ -1,0 +1,634 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top, #5a4635 0%, #2e221b 45%, #16110d 100%);
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* subtila diagonala linjer */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.025) 0px,
+      rgba(255,255,255,0.025) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+#gameShell {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  z-index: 2;
+}
+
+#menuLogo {
+  width: 300px;
+  max-width: 80%;
+  height: auto;
+
+  filter:
+    drop-shadow(0 0 22px rgba(255,190,90,0.55))
+    drop-shadow(0 12px 22px rgba(0,0,0,0.45));
+
+  animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+canvas {
+  width: 100vw;
+  height: 56.25vw;
+
+  max-height: 100vh;
+  max-width: 177.78vh;
+
+  background: #78a978;
+
+  border: 2px solid rgba(230,170,70,0.45);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    0 0 25px rgba(255,190,90,0.12);
+
+  image-rendering: auto;
+}
+
+#hud {
+  position: absolute;
+  inset: 0;
+
+  color: #f5e2bd;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+
+  pointer-events: none;
+  z-index: 5;
+}
+
+.topbar,
+.leftPanel,
+.bottomPanel,
+.startMenu,
+.choiceOverlay,
+#menuButtons {
+  pointer-events: auto;
+}
+
+.topbar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  z-index: 10;
+}
+
+.pill {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(75,55,42,0.92),
+      rgba(42,28,20,0.92)
+    );
+
+  border: 1px solid rgba(255,190,90,0.35);
+
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  color: #f5e2bd;
+
+  font-weight: 900;
+  font-size: 14px;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.32),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+
+  backdrop-filter: blur(8px);
+}
+
+.leftPanel {
+  position: absolute;
+  left: 14px;
+  top: 84px;
+
+  display: grid;
+  gap: 8px;
+
+  z-index: 20;
+}
+
+.bottomPanel {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+
+  display: grid;
+  gap: 8px;
+
+  padding: 12px;
+
+  background: rgba(25,18,14,0.72);
+
+  border: 1px solid rgba(255,190,90,0.25);
+  border-radius: 22px;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,0.38),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(10px);
+
+  z-index: 15;
+}
+
+.factions,
+.units {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+/* scrollbar */
+.factions::-webkit-scrollbar,
+.units::-webkit-scrollbar {
+  height: 6px;
+}
+
+.factions::-webkit-scrollbar-thumb,
+.units::-webkit-scrollbar-thumb {
+  background: rgba(255,190,90,0.45);
+  border-radius: 999px;
+}
+
+button {
+  border: 1px solid rgba(255,190,90,0.38);
+
+  border-radius: 16px;
+
+  padding: 10px 14px;
+  min-width: 98px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(75,55,42,0.96),
+      rgba(42,28,20,0.96)
+    );
+
+  color: #f5e2bd;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.32),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+
+  cursor: pointer;
+
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    filter 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-3px);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(95,70,50,1),
+      rgba(52,36,25,1)
+    );
+
+  box-shadow:
+    0 14px 30px rgba(0,0,0,0.42),
+    0 0 16px rgba(255,190,90,0.18);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(-1px) scale(0.98);
+}
+
+button small {
+  display: block;
+  opacity: 0.75;
+  font-weight: 700;
+  margin-top: 2px;
+  color: #ead3a8;
+}
+
+button.active,
+button.selected {
+  color: #ffcf66;
+
+  outline: 3px solid rgba(255,190,90,0.9);
+  outline-offset: 2px;
+
+  box-shadow:
+    0 0 0 5px rgba(255,190,90,0.22),
+    0 12px 28px rgba(0,0,0,0.42),
+    0 0 20px rgba(255,190,90,0.22);
+}
+
+button:disabled {
+  opacity: 0.45;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.mode {
+  min-width: 116px;
+}
+
+/* attack / defend */
+#attackBtn.active,
+#attackBtn.selected {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(145,35,30,0.96),
+      rgba(75,20,18,0.96)
+    );
+
+  border-color: rgba(255,95,80,0.75);
+}
+
+#defendBtn.active,
+#defendBtn.selected {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(35,75,145,0.96),
+      rgba(18,35,80,0.96)
+    );
+
+  border-color: rgba(100,160,255,0.75);
+}
+
+#message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  translate: -50% -50%;
+
+  font-size: clamp(34px, 6vw, 72px);
+  font-weight: 1000;
+
+  text-align: center;
+
+  color: #ffcf66;
+  text-shadow:
+    0 4px 0 rgba(0,0,0,0.4),
+    0 0 22px rgba(255,190,90,0.35);
+
+  display: none;
+
+  z-index: 50;
+}
+
+/* overlays */
+.choiceOverlay {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    rgba(10,7,5,0.62);
+
+  backdrop-filter: blur(7px);
+
+  z-index: 100;
+}
+
+.choiceCard {
+  width: min(720px, calc(100vw - 28px));
+
+  background: rgba(25,18,14,0.88);
+
+  border: 1px solid rgba(255,190,90,0.28);
+  border-radius: 28px;
+
+  padding: 24px;
+
+  box-shadow:
+    0 26px 70px rgba(0,0,0,0.52),
+    0 0 24px rgba(255,190,90,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  text-align: center;
+
+  color: #f5e2bd;
+
+  animation: fadeUp 0.45s ease;
+}
+
+.choiceButtons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.choiceButtons button {
+  min-height: 96px;
+}
+
+/* start menu */
+.startMenu {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    radial-gradient(circle at top, rgba(90,70,53,0.78), rgba(22,17,13,0.96));
+
+  backdrop-filter: blur(5px);
+
+  z-index: 200;
+}
+
+.startCard {
+  width: min(680px, calc(100vw - 28px));
+
+  background: rgba(25,18,14,0.86);
+
+  border: 1px solid rgba(255,190,90,0.28);
+  border-radius: 30px;
+
+  padding: 30px;
+
+  box-shadow:
+    0 28px 80px rgba(0,0,0,0.55),
+    0 0 24px rgba(255,190,90,0.13),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  text-align: center;
+
+  color: #f5e2bd;
+
+  animation: fadeUp 0.55s ease;
+}
+
+.startCard h1 {
+  margin: 0 0 8px;
+
+  font-size: clamp(34px, 7vw, 64px);
+
+  color: #f0b443;
+
+  text-shadow:
+    0 4px 0 rgba(0,0,0,0.35),
+    0 0 20px rgba(255,190,90,0.25);
+}
+
+.difficultyButtons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin-bottom: 14px;
+}
+
+.difficultyButtons button.active,
+.difficultyButtons button.selected {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(115,80,35,1),
+      rgba(68,42,22,1)
+    );
+
+  color: #ffcf66;
+}
+
+.startBtn {
+  min-width: 240px;
+
+  font-size: 20px;
+
+  color: #1f160e;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffd66b,
+      #c78925
+    );
+
+  border-color: rgba(255,220,120,0.7);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.38),
+    0 0 20px rgba(255,190,90,0.22);
+}
+
+.startBtn:hover:not(:disabled) {
+  background:
+    linear-gradient(
+      145deg,
+      #ffe08a,
+      #d69a32
+    );
+}
+
+#menuButtons {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  z-index: 25;
+}
+
+#menuButtons button {
+  width: 150px;
+  height: 52px;
+}
+
+#startMenu.is-closed,
+#startMenu[hidden],
+#factionChoiceOverlay.is-closed,
+#factionChoiceOverlay[hidden] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* frame-support */
+button.has-frame {
+  background-image: var(--frame-img);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+button.has-frame.active {
+  background-image: var(--frame-active-img, var(--frame-img));
+}
+
+button.has-frame:disabled {
+  background-image: var(--frame-locked-img, var(--frame-img));
+}
+
+/* icons */
+.iconRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.uiIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 3px 5px rgba(0,0,0,0.35));
+}
+
+.unitButton .uiIcon {
+  width: 34px;
+  height: 34px;
+}
+
+.choiceButtons button .uiIcon {
+  width: 52px;
+  height: 52px;
+  display: block;
+  margin: 0 auto 6px;
+}
+
+.choiceCard.has-card-frame {
+  background-image: var(--card-frame-img);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.bottomPanel.has-panel-frame {
+  background-image: var(--panel-frame-img);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 12px;
+  border-radius: 22px;
+}
+
+/* animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* mobil */
+@media (max-width: 700px) {
+  .topbar {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .pill {
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+
+  .leftPanel {
+    left: 8px;
+    top: 76px;
+  }
+
+  #menuButtons {
+    top: 76px;
+    right: 8px;
+  }
+
+  #menuButtons button {
+    width: 120px;
+    height: 46px;
+  }
+
+  .bottomPanel {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 10px;
+  }
+
+  button {
+    min-width: 86px;
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .choiceButtons,
+  .difficultyButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .startCard,
+  .choiceCard {
+    padding: 20px;
+  }
+
+  #menuLogo {
+    width: 230px;
+  }
+}

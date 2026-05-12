@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gudstjänst</title>
+  <link rel="stylesheet" href="styles/global.css">
+  <style>
+    * {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #1f140c;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.gudstjanst {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+  padding: 18px;
+
+  background:
+    radial-gradient(circle at top, #5a3519 0%, #1f140c 65%);
+
+  user-select: none;
+}
+
+.scen-knapp {
+  all: unset;
+
+  position: relative;
+
+  width: min(92vw, 520px);
+  max-height: 68svh;
+  aspect-ratio: 9 / 16;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 26px;
+  overflow: hidden;
+
+  background: #000;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.65),
+    0 0 0 5px rgba(255, 232, 177, 0.12);
+}
+
+.scen-bild {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  display: block;
+}
+
+.scen-knapp:hover .scen-bild {
+  transform: scale(1.01);
+}
+
+.dialogruta {
+  display: none;
+
+  width: min(92vw, 520px);
+  min-height: 110px;
+
+  padding: 18px 20px;
+
+  border-radius: 22px;
+
+  background: rgba(255, 244, 214, 0.96);
+  border: 4px solid rgba(90, 53, 25, 0.55);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  color: #3b2111;
+
+  font-size: clamp(1rem, 4.2vw, 1.4rem);
+  line-height: 1.4;
+
+  text-align: left;
+
+  max-height: 5.2em;
+  overflow: hidden;
+}
+
+.dialogruta.visa {
+  display: block;
+}
+
+.dialogruta strong {
+  color: #5a3519;
+}
+
+.dialogruta em {
+  opacity: 0.85;
+}
+
+.kontroller {
+  position: absolute;
+
+  left: 12px;
+  right: 12px;
+  top: 12px;
+
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  pointer-events: none;
+}
+
+.kontroll-knapp {
+  pointer-events: auto;
+
+  padding: 10px 14px;
+
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+
+  color: #fff3c4;
+  background: rgba(91, 53, 24, 0.9);
+
+  border: 3px solid #c69a4c;
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.kontroll-knapp:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.steg-raknare {
+  pointer-events: none;
+
+  align-self: center;
+
+  padding: 8px 12px;
+
+  color: #fff3c4;
+  background: rgba(31, 20, 12, 0.65);
+
+  border-radius: 999px;
+
+  font-size: 0.95rem;
+
+  text-shadow: 0 1px 2px #000;
+}
+
+@media (min-width: 700px) {
+  .gudstjanst {
+    padding: 28px;
+    gap: 18px;
+  }
+
+  .scen-knapp {
+    width: min(84vw, 1100px);
+    height: min(72svh, 900px);
+    aspect-ratio: auto;
+
+    border-radius: 34px;
+  }
+
+  .dialogruta {
+    width: min(72vw, 760px);
+
+    min-height: 150px;
+
+    padding: 28px 36px;
+
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  }
+
+  .kontroller {
+    left: 24px;
+    right: 24px;
+    top: 24px;
+  }
+
+  .kontroll-knapp {
+    font-size: 1.1rem;
+    padding: 12px 20px;
+  }
+}
+  </style>
+</head>
+<body>
+  <main class="gudstjanst">
+    <div style="display:flex; flex-direction:column; align-items:center; width:100%;">
+      <button class="scen-knapp" onclick="nastaSteg()" aria-label="Nästa steg i gudstjänsten">
+        <img id="scenBild" class="scen-bild" src="gudstjanst-01.png" alt="Gudstjänst" />
+      </button>
+
+      <div id="dialogruta" class="dialogruta"></div>
+    </div>
+
+    <div class="kontroller">
+      <button id="backaKnapp" class="kontroll-knapp" onclick="backaSteg(event)">← Backa</button>
+
+      <div id="stegRakare" class="steg-raknare">1 / 1</div>
+
+      <div style="display:flex; gap:10px; pointer-events:auto;">
+        <button class="kontroll-knapp" onclick="startaOm(event)">Börja om</button>
+
+        <button class="kontroll-knapp" onclick="gaUt(event)">
+          Gå ut ⛪
+        </button>
+      </div>
+    </div>
+
+    <audio id="scenLjud"></audio>
+  </main>
+
+  <script>
+    const steg = [
+      {
+        bild: "images/gudstjanst/1ringer_in.png",
+        ljud: "audio/gudstjanst/1ringer_in.mp3",
+        bubbla: `Klonk… klonk… följt av ett högljutt “BÄÄÄÄ” från sakristian.`
+      },
+      {
+        bild: "images/gudstjanst/2walk_in.png",
+        ljud: "audio/gudstjanst/2walk_in.mp3"
+      },
+      {
+        bild: "images/gudstjanst/3gudstjanst.png",
+        ljud: "audio/gudstjanst/3inledning.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>I Faderns och Sonens och den heliga Fårens namn.<br><br><strong>Lammen:</strong><br>Bääämen!`
+      },
+      {
+        bild: "images/gudstjanst/3gudstjanst.png",
+        ljud: "audio/gudstjanst/3valkommen.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Välkomna till dagens gudstjänst.`
+      },
+      {
+        bild: "images/gudstjanst/3gudstjanst.png",
+        bubbla: `Mobiltelefoner stängs av.`
+      },
+      {
+        bild: "images/gudstjanst/3gudstjanst.png",
+        bubbla: `Saltstenar lämnas utanför kyrkorummet.`
+      },
+      {
+        bild: "images/gudstjanst/3gudstjanst.png",
+        bubbla: `Och nej, man får fortfarande inte äta psalmböckerna.`
+      },
+      {
+        bild: "images/gudstjanst/4psalm89.png",
+        ljud: "audio/gudstjanst/4psalm89.mp3",
+        bubbla: `<strong>Första psalmen</strong><br>Psalm 89.</em>`
+      },
+      {
+        bild: "images/gudstjanst/5synda.png",
+        ljud: "audio/gudstjanst/5synda.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Låt oss bekänna våra synder inför den gode Herden.`
+      },
+      {
+        bild: "images/gudstjanst/5synda.png",
+        bubbla: `<strong>Lammen:</strong><br>Vi bekänner att vi har trängt oss före i hökön.`
+      },
+      {
+        bild: "images/gudstjanst/5synda.png",
+        bubbla: `stirrat dömande på getter och rymt genom hålet i staketet.`
+      },
+      {
+        bild: "images/gudstjanst/5synda.png",
+        bubbla: `och sagt “bää” ironiskt. Förlåt oss, Herde.`
+      },
+      {
+        bild: "images/gudstjanst/6forlatelse.png",
+        ljud: "audio/gudstjanst/6forlatelse.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Gud är nådig och rik på kärlek.<br>Han förlåter alla som ångrar sig — även dem som åt upp kyrkans blomsterarrangemang.`
+      },
+      {
+        bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Dagens läsning</strong><br>Evangelium: Herdens bok 10:11–15`
+      },
+      {
+       bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Läser:</strong><br>Och den gode Herden sade till flocken:`
+      },
+       {
+       bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Läser:</strong><br>”Jag är den gode Herden.Den gode Herden lämnar aldrig sina lamm även när staketet ser misstänkt lågt ut.`
+      },
+      {
+       bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Läser:</strong><br>Jag känner mina får, och mina får känner min röst — särskilt när jag skakar hinken med havre.`
+      },
+      {
+       bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Läser:</strong><br>När vargen kommer springer inte den gode Herden bort. Han står kvar,`
+      },
+      {
+       bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Läser:</strong><br>även om Sheerahn redan fått panik och försöker gömma sig bakom altaret.`
+      },
+      {
+       bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Läser:</strong><br>Den gode Herden leder flocken till gröna ängar, friskt vattenoch rimligt klippta sommarhagar.`
+      },
+      {
+       bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Läser:</strong><br>Och fåren svarade: ‘Bääämen.’”`
+      },
+      {
+        bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Fårpräst:</strong><br>Så lyder Herdens ord.`
+      },
+      {
+        bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Fårpräst</strong><br>(mrrhrm)Så lyder Herdens ord.`
+      },
+      {
+        bild: "images/gudstjanst/7lasning.png",
+        ljud: "audio/gudstjanst/7lasning.mp3",
+        bubbla: `<strong>Fårsamling:</strong><br>Bää Gud.`
+      },
+      {
+        bild: "images/gudstjanst/6forlatelse.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Mina kära lamm…
+Den gode Herden vakar alltid över sin flock.`
+      },
+      {
+        bild: "images/gudstjanst/6forlatelse.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Han känner var och en av oss.
+Varje ulltuss. Varje litet bää.`
+      },
+      {
+        bild: "images/gudstjanst/6forlatelse.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Ingen är bortglömd i Herrens stora hage.`
+      },
+       {
+        bild: "images/gudstjanst/6forlatelse.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Och när natten blir mörk…
+då räknar Herden sina får…`
+      },
+       {
+        bild: "images/gudstjanst/6forlatelse.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>(kisar ut över bänkraderna.)`
+      },
+      {
+        bild: "images/gudstjanst/6forlatelse.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>En där…
+två där borta…
+tre små lamm vid gången…`
+      },
+
+      {
+        bild: "images/gudstjanst/8predikan.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>fyra…            (Lång paus.)`
+      },
+      {
+        bild: "images/gudstjanst/8predikan.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Fem fluffiga…
+sex väldigt fluffiga…
+sju…`
+      },
+      {
+        bild: "images/gudstjanst/8predikan.png",
+        ljud: "audio/gudstjanst/9predikan.mp3",
+        bubbla: `<strong>Församlingen sitter helt tyst.</strong>`
+      },
+      {
+        bild: "images/gudstjanst/8predikan.png",
+        ljud: "audio/gudstjanst/8predikan.mp3",
+        bubbla: `<strong>Fårprästen, allt långsammare nu:</strong><br>Åtta…
+nio…
+tio…`
+      },
+      {
+        bild: "images/gudstjanst/8predikan.png",
+        ljud: "audio/gudstjanst/10predikan.mp3",
+        bubbla: `<strong>Fårprästen, allt långsammare:</strong><br>(Ögonlocken börjar sjunka.) Elva små ulliga…
+tolv…`
+      },
+      {
+        bild: "images/gudstjanst/9predikan.png",
+        ljud: "audio/gudstjanst/11predikanslut.mp3",
+        bubbla: `<em>DUNS.</em><br>Prästen somnar med huvudet mot predikstolen.'`
+      },
+      {
+        bild: "images/gudstjanst/10predikan.png",
+        ljud: "audio/gudstjanst/11amen.mp3",
+        bubbla: `<strong>Fårsamling vaknar..</strong>`
+      },
+       {
+        bild: "images/gudstjanst/10predikan.png",
+        ljud: "audio/gudstjanst/11amen.mp3",
+        bubbla: `<strong>Fårsamlingen väntar artigt...</strong>`
+      },
+      {
+        bild: "images/gudstjanst/10predikan.png",
+        ljud: "audio/gudstjanst/11amen.mp3",
+        bubbla: `<strong>Det lilla lammet:</strong>...Bää?`
+      },
+      {
+        bild: "images/gudstjanst/11predikanslut.png",
+        ljud: "audio/gudstjanst/11amen.mp3",
+        bubbla: `<strong>Prästen, med ett ryck:</strong>AMEN!
+…jag menar —
+och därför ska vi alltid vara vaksamma i tron.`
+      },
+      {
+        bild: "images/gudstjanst/12psalm762.png",
+        ljud: "audio/gudstjanst/12psalm762.mp3",
+        bubbla: `<strong>Psalm före nattvarden</strong><br>Psalm 762.</em>`
+      },
+      {
+        bild: "images/gudstjanst/13lovsagelseNV.png",
+        ljud: "audio/gudstjanst/13lovsagelseNV.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Herren vare med er. Upplyft era hjärtan.`
+      },
+      {
+        bild: "images/gudstjanst/14efternattvard.png",
+        ljud: "audio/gudstjanst/14instiftelse.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Den natt då...<strong>PRUTT!!</strong>`
+      },
+      {
+        bild: "images/gudstjanst/15efterfis.png",
+        ljud: "audio/gudstjanst/15kalken.mp3",
+        bubbla: `<strong>Fårsamlingen blir tyst och stirrar misstänksamt mot källan...</strong>`
+      },
+      {
+        bild: "images/gudstjanst/17brytabrod.png",
+        ljud: "audio/gudstjanst/16herrensbon.mp3",
+        bubbla: `<strong>Fårprästen:</strong>Den natt då Jesus samlade sin flock tog han brödet…`
+      },
+      {
+        bild: "images/gudstjanst/17brytabrod.png",
+        ljud: "audio/gudstjanst/16herrensbon.mp3",
+        bubbla: `<strong>Ett litet lamm frågar..</strong>Är det surdeg?`
+      },
+      {
+        bild: "images/gudstjanst/17brytabrod.png",
+        ljud: "audio/gudstjanst/16herrensbon.mp3",
+        bubbla: `<strong>Fårprästen</strong>... …och sade:
+
+”Tag och ät. Detta är min kropp.”`
+      },
+      {
+        bild: "images/gudstjanst/18jesublod.png",
+        ljud: "audio/gudstjanst/16herrensbon.mp3",
+        bubbla: `<strong>Fårprästen tog han kalken.</strong>`
+      },
+      {
+        bild: "images/gudstjanst/18jesublod.png",
+        ljud: "audio/gudstjanst/16herrensbon.mp3",
+        bubbla: `<strong>Fårprästen tog han kalken.</strong>Sedan tog han sin bägare och sade "Drick av den alla, det är mitt blod" `
+      },
+      {
+        bild: "images/gudstjanst/19herrensbon.png",
+        ljud: "audio/gudstjanst/19herrensbon.mp3",
+        bubbla:`<strong>Alla:</strong>Fader vår som är i himmelen...`
+      },
+      {
+        bild: "images/gudstjanst/19herrensbon.png",
+        ljud: "audio/gudstjanst/19herrensbon.mp3",
+        bubbla:`<strong>Ett litet lamm</strong>Bää, bää, vita lamm, gick på restau...<strong>Mamman täcker för munnen på lammet</strong>`
+      },
+      {
+        bild: "images/gudstjanst/20maltid.png",
+        ljud: "audio/gudstjanst/20maltid.mp3",
+        bubbla:`<strong>Fårprästen</strong>Kristi kropp, för dig utgiven.<strong>Lamm:</strong>Bäämen.`
+      },
+      {
+        bild: "images/gudstjanst/20maltid.png",
+        ljud: "audio/gudstjanst/20maltid.mp3",
+        bubbla:`<strong>Fårprästen</strong>Kristi blod, för dig utgjutet.<strong>Lamm:</strong>Bäämen.`
+      },
+      {
+        bild: "images/gudstjanst/21tackbon.png",
+        ljud: "audio/gudstjanst/21tackbon.mp3",
+        bubbla: `<strong>Alla:</strong><br>Tack gode Herde<br>för brödet, gemenskapen och för att kyrkkaffet snart börjar. Låt bullarna räcka till alla. Bääämen.`
+      },
+      {
+        bild: "images/gudstjanst/22psalm725.png",
+        ljud: "audio/gudstjanst/22psalm725.mp3",
+        bubbla: `<strong>Avslutningspsalm</strong><br>psalm 725.`
+      },
+      {
+        bild: "images/gudstjanst/23valsignelse.png",
+        ljud: "audio/gudstjanst/23valsignelse.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Herren välsigne er och bevare er.`
+      },
+      {
+        bild: "images/gudstjanst/23valsignelse.png",
+        bubbla: `Herren låte sitt ansikte lysa över er.`
+      },
+      {
+        bild: "images/gudstjanst/23valsignelse.png",
+        bubbla: `som en värmelampa i februari.`
+      },
+      {
+        bild: "images/gudstjanst/23valsignelse.png",
+        bubbla: `Herren give er frid, lugna magar och stängda grindar.`
+      },
+      {
+        bild: "images/gudstjanst/23valsignelse.png",
+        bubbla: `I Faderns och Sonens och det heliga Bäääets namn.`
+      },
+      {
+        bild: "images/gudstjanst/2walk_in.png",
+        ljud: "audio/gudstjanst/24sandning.mp3",
+        bubbla: `<strong>Fårprästen:</strong><br>Gå i frid och beta ansvarsfullt.<br><br><strong>Lammen:</strong><br>VI TACKAR HERDEN! 🐑`
+      }
+    ];
+
+    let aktivtSteg = 0;
+
+    const scenBild = document.getElementById("scenBild");
+    const dialogruta = document.getElementById("dialogruta");
+    const scenLjud = document.getElementById("scenLjud");
+    const backaKnapp = document.getElementById("backaKnapp");
+    const stegRakare = document.getElementById("stegRakare");
+
+    function visaSteg() {
+      const stegData = steg[aktivtSteg];
+
+      scenBild.src = stegData.bild;
+
+      if (stegData.bubbla) {
+        dialogruta.innerHTML = stegData.bubbla;
+        dialogruta.classList.add("visa");
+      } else {
+        dialogruta.innerHTML = "";
+        dialogruta.classList.remove("visa");
+      }
+
+      if (stegData.ljud) {
+        scenLjud.pause();
+        scenLjud.currentTime = 0;
+        scenLjud.src = stegData.ljud;
+        scenLjud.play().catch(() => {
+          // Mobilwebbläsare kan ibland vänta med ljud tills användaren trycker.
+        });
+      }
+
+      backaKnapp.disabled = aktivtSteg === 0;
+      stegRakare.textContent = `${aktivtSteg + 1} / ${steg.length}`;
+    }
+
+    function nastaSteg() {
+      if (aktivtSteg < steg.length - 1) {
+        aktivtSteg++;
+        visaSteg();
+      }
+    }
+
+    function backaSteg(event) {
+      event.stopPropagation();
+
+      if (aktivtSteg > 0) {
+        aktivtSteg--;
+        visaSteg();
+      }
+    }
+
+    function startaOm(event) {
+      event.stopPropagation();
+      aktivtSteg = 0;
+      visaSteg();
+    }
+
+    function gaUt(event) {
+      event.stopPropagation();
+      window.location.href = "kyrkan.html";
+    }
+
+    visaSteg();
+  </script>
+  
+</body>
+</html>

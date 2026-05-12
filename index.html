@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gotland 2026</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/reset.css" />
+</head>
+<body>
+   <div class="side-menu">
+  <button class="hamburger" aria-label="Öppna meny">
+    ☰
+  </button>
+
+  <nav class="side-menu-panel">
+    <a href="profile.html">Profil</a>
+    <a href="index.html">Hem</a>
+    <a href="schema.html">Schema</a>
+    <a href="glassmagasin.html">Bäänitha?</a>
+    <a href="token-hs.html">Tokens</a>
+
+    <button class="logout-button" onclick="logoutUser()">
+      Logga ut
+    </button>
+  </nav>
+</div>
+  <div class="page-shell">
+
+    <header class="hero-header">
+
+  <div class="home-button-wrapper">
+    <img src="images/logo_hem.png" alt="Hem" class="home-button">
+  </div>
+
+</header>
+
+    <main class="hero-grid">
+
+    <section class="home-layout">
+
+  <div class="cards-row">
+
+  <a href="schema.html" class="home-card" id="card-schema">
+    <img src="images/schema.png" alt="">
+  </a>
+
+  <a href="spel.html" class="home-card" id="card-spel">
+    <img src="images/spel.png" alt="">
+  </a>
+
+  <a href="quiz.html" class="home-card" id="card-quiz">
+    <img src="images/quiz.png" alt="">
+  </a>
+
+  <a href="fakta.html" class="home-card" id="card-fakta">
+    <img src="images/fakta.png" alt="">
+  </a>
+
+  <a href="kyrkan.html" class="home-card" id="card-kyrkan">
+    <img src="images/kyrkan.png" alt="">
+  </a>
+
+</div>
+
+</section>
+    </main>
+  </div>
+    <script src="scripts/logout.js"></script>
+</body>
+</html>

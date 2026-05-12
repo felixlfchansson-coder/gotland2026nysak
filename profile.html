@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="sv">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Profil</title>
+
+  <link rel="stylesheet" href="styles/reset.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+  <div class="side-menu">
+    <button class="hamburger" aria-label="Öppna meny">
+      ☰
+    </button>
+
+    <nav class="side-menu-panel">
+      <a href="profile.html">Profil</a>
+      <a href="index.html">Hem</a>
+      <a href="schema.html">Schema</a>
+      <a href="glassmagasin.html">Bäänitha?</a>
+      <a href="token-hs.html">Tokens</a>
+
+      <button class="logout-button" onclick="logoutUser()">
+        Logga ut
+      </button>
+    </nav>
+  </div>
+
+  <div class="qr-popup-wrapper">
+
+    <button
+      class="qr-popup-button"
+      id="openQrButton"
+      aria-label="Öppna QR-läsare"
+    >
+      📷
+    </button>
+
+    <div class="qr-popup-panel" id="qrPopupPanel">
+
+      <div class="qr-popup-header">
+        <h2>Skanna QR</h2>
+
+        <button
+          class="qr-close-button"
+          id="closeQrButton"
+          aria-label="Stäng QR-läsare"
+        >
+          ×
+        </button>
+      </div>
+
+      <div id="qr-reader"></div>
+
+      <p id="qr-message"></p>
+
+    </div>
+
+  </div>
+
+  <main class="profile-page">
+
+    <div class="profile-card">
+
+      <div class="profile-content">
+
+        <section class="profile-hero">
+
+          <div class="avatar-preview">
+
+            <img
+              src="images/avatar/body-base.png"
+              class="avatar-layer"
+              id="avatarBase"
+              alt=""
+            >
+
+            <img
+              src="images/avatar/body-white.png"
+              class="avatar-layer"
+              id="avatarBody"
+              alt=""
+            >
+
+            <img
+              src="images/avatar/glasses/sunglasses.png"
+              class="avatar-layer"
+              id="avatarGlasses"
+              alt=""
+            >
+
+          </div>
+
+          <h1 id="profilePageName">
+            Användare
+          </h1>
+
+          <a href="token-hs.html" class="profile-token-link">
+            🏆 Se tokens & upplåsningar
+          </a>
+
+        </section>
+
+        <section class="profile-section">
+
+          <h2>Färg</h2>
+
+          <div class="item-grid">
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="body_white"
+              data-type="body"
+              data-src="images/avatar/body-white.png"
+            >
+              🤍
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="body_black"
+              data-type="body"
+              data-src="images/avatar/body-black.png"
+            >
+              🖤
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="body_crimson"
+              data-type="body"
+              data-src="images/avatar/body-crimson.png"
+            >
+              ❤️
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="body_petrol"
+              data-type="body"
+              data-src="images/avatar/body-petrol.png"
+            >
+              🟦
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="body_magenta"
+              data-type="body"
+              data-src="images/avatar/body-magenta.png"
+            >
+              💜
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="body_senap"
+              data-type="body"
+              data-src="images/avatar/body-senap.png"
+            >
+              💛
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="body_viridian"
+              data-type="body"
+              data-src="images/avatar/body-viridian.png"
+            >
+              💚
+            </button>
+
+          </div>
+
+        </section>
+
+        <section class="profile-section">
+
+          <h2>Hattar</h2>
+
+          <div class="item-grid">
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="hat_tophat"
+              data-type="hat"
+              data-src="images/avatar/hats/tophat.png"
+            >
+              🎩
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="hat_cowboy"
+              data-type="hat"
+              data-src="images/avatar/hats/cowboy.png"
+            >
+              🤠
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="hat_fez"
+              data-type="hat"
+              data-src="images/avatar/hats/fez.png"
+            >
+              🧢
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="hat_sortinghat"
+              data-type="hat"
+              data-src="images/avatar/hats/sortinghat.png"
+            >
+              🧙
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="hat_strawhat"
+              data-type="hat"
+              data-src="images/avatar/hats/strawhat.png"
+            >
+              👒
+            </button>
+
+          </div>
+
+        </section>
+
+        <section class="profile-section">
+
+          <h2>Glasögon</h2>
+
+          <div class="item-grid">
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="glasses_sunglasses"
+              data-type="glasses"
+              data-src="images/avatar/glasses/sunglasses.png"
+            >
+              🕶️
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="glasses_doffy"
+              data-type="glasses"
+              data-src="images/avatar/glasses/doffy.png"
+            >
+              😎
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="glasses_harry_potter"
+              data-type="glasses"
+              data-src="images/avatar/glasses/harry-potter.png"
+            >
+              👓
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="glasses_hawaii"
+              data-type="glasses"
+              data-src="images/avatar/glasses/hawaii.png"
+            >
+              🌺
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="glasses_lee_sin"
+              data-type="glasses"
+              data-src="images/avatar/glasses/lee-sin.png"
+            >
+              🥋
+            </button>
+
+            <button
+              class="avatar-item locked"
+              data-unlock-id="glasses_snorkel"
+              data-type="glasses"
+              data-src="images/avatar/glasses/snorkel.png"
+            >
+              🤿
+            </button>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="scripts/profilebox.js"></script>
+  <script src="scripts/supabase.js"></script>
+  <script src="scripts/avatar-unlocks.js"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="scripts/qr-unlock.js"></script>
+  <script src="scripts/logout.js"></script>
+
+  <script>
+    const userName =
+      localStorage.getItem("userName") || "Användare";
+
+    document.getElementById("profilePageName").textContent = userName;
+  </script>
+
+</body>
+
+</html>

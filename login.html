@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Login - Gotland 2026</title>
+
+  <link rel="stylesheet" href="styles/login.css" />
+</head>
+<body>
+
+  <div class="login-page">
+
+    <!-- BAKGRUNDSBILD -->
+    <img
+      src="images/sheep-norris.png"
+      alt="Sheep Norris"
+      class="norris-bg"
+    >
+
+    <!-- CITATRUTA -->
+    <div class="norris-citat-wrapper">
+
+      <img
+        src="images/norris-citat.png"
+        alt="Citat"
+        class="norris-citat-bg"
+      >
+
+      <p class="norris-citat-text">
+        "Ingen kommer in utan QR-kod."
+      </p>
+
+    </div>
+
+    <!-- LOGINRUTA -->
+    <div class="login-container">
+
+      <img
+        src="images/logo_hem.png"
+        alt="Logo"
+        class="login-logo"
+      >
+
+      <h1>Logga in</h1>
+
+      <form class="login-form" id="loginForm">
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Namn"
+          required
+        >
+
+        <input
+          type="text"
+          id="id"
+          placeholder="ID-kod"
+          required
+        >
+
+        <button type="submit">
+          Logga in
+        </button>
+
+      </form>
+
+      <button class="qr-button">
+        Skanna QR-kod
+      </button>
+
+    </div>
+
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="scripts/login.js"></script>
+
+</body>
+</html>

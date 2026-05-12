@@ -1,0 +1,10 @@
+:root {
+  --bg: #1b130d;
+  --gold: #d7b46a;
+  --cream: #f4e5c5;
+  --purple: #6c4aa1;
+  --purple-2: #8f68c2;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+  --radius: 18px;
+}

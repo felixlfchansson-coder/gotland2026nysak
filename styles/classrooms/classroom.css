@@ -1,0 +1,118 @@
+.classroom-page {
+  margin: 0;
+  overflow: hidden;
+  background: #120d08;
+}
+
+
+/* =========================
+   SCEN
+========================= */
+
+.classroom-scene {
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+
+/* =========================
+   BAKGRUND
+========================= */
+
+.classroom-bg {
+
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: 1;
+}
+
+
+/* =========================
+   TILLBAKA-KNAPP
+========================= */
+
+.back-to-map {
+
+  position: fixed;
+
+  top: 24px;
+  left: 24px;
+
+  z-index: 100;
+
+  padding: 14px 20px;
+
+  border-radius: 999px;
+
+  text-decoration: none;
+
+  color: white;
+
+  background:
+    rgba(20,15,10,.72);
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.35);
+}
+
+
+/* =========================
+   FACT CARD
+========================= */
+
+.fact-card {
+
+  position: absolute;
+
+  right: 4%;
+  bottom: 6%;
+
+  z-index: 20;
+
+  width: min(420px, 90vw);
+
+  padding: 24px;
+
+  border-radius: 24px;
+
+  background:
+    rgba(16,14,10,.78);
+
+  backdrop-filter: blur(10px);
+
+  color: white;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
+}
+
+
+/* =========================
+   KNAPP
+========================= */
+
+.fact-button {
+
+  margin-top: 16px;
+
+  border: none;
+  cursor: pointer;
+
+  padding: 14px 18px;
+
+  border-radius: 999px;
+
+  font-weight: bold;
+}

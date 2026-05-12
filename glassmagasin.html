@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Glassmagasinet – Fårriket</title>
+
+  <link rel="stylesheet" href="styles/reset.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/glass.css" />
+</head>
+<body>
+
+   <div class="side-menu">
+  <button class="hamburger" aria-label="Öppna meny">
+    ☰
+  </button>
+
+  <nav class="side-menu-panel">
+    <a href="profile.html">Profil</a>
+    <a href="index.html">Hem</a>
+    <a href="schema.html">Schema</a>
+    <a href="glassmagasin.html">Bäänitha?</a>
+    <a href="token-hs.html">Tokens</a>
+
+    <button class="logout-button" onclick="logoutUser()">
+      Logga ut
+    </button>
+  </nav>
+</div>
+
+  <header class="glass-hero">
+
+    <div class="glass-hero-image">
+      <img src="images/glassgalen.png" alt="Bäänitha i glassdrömhagen" />
+    </div>
+
+    <div class="glass-hero-text">
+      <p class="eyebrow">Glassmagasinet Visby</p>
+
+      <h1>
+        Bäänitha's<br />
+        officiella smakarkiv
+      </h1>
+
+      <p class="intro">
+        Viktig information om lägret:
+        <br /><br />
+        • Ja, Gud älskar dig.
+        <br />
+        • Ja, du måste dricka vatten.
+        <br />
+        • Men framförallt:
+        <strong>det finns väldigt mycket glass.</strong>
+      </p>
+
+      <button class="hero-button" id="openGlassModal">
+        Utforska smaker 🍦
+      </button>
+    </div>
+
+  </header>
+
+  <main>
+
+    <section class="glass-warning-card">
+      <h2>⚠ Bäänithas varning</h2>
+
+      <p>
+        Försök inte läsa alla smaker på tom mage.
+        Det har hänt incidenter tidigare.
+      </p>
+    </section>
+
+    <section class="glass-info-grid">
+
+      <article class="glass-info-card">
+        <h3>🍦 Regel nummer ett</h3>
+        <p>
+          Bestäm minst tre reservsmaker innan du går fram till disken.
+          Annars kan glasspanik uppstå.
+        </p>
+      </article>
+
+      <article class="glass-info-card">
+        <h3>💧 Regel nummer två</h3>
+        <p>
+          Glass är fantastiskt, men vatten är fortfarande viktigt.
+          Bäänitha protesterar, men accepterar.
+        </p>
+      </article>
+
+      <article class="glass-info-card">
+        <h3>🐑 Regel nummer tre</h3>
+        <p>
+          Dela smakupplevelser med gruppen.
+          En bra glassrapport kan rädda någons dag.
+        </p>
+      </article>
+
+    </section>
+
+    <div class="glass-modal" id="glassModal" aria-hidden="true">
+      <div class="glass-modal-backdrop" id="closeGlassModal"></div>
+
+      <section class="glass-modal-panel" aria-label="Glasslista">
+
+        <button class="modal-close" id="modalCloseButton" aria-label="Stäng glasslistan">
+          ×
+        </button>
+
+        <div class="section-top">
+          <div>
+            <p class="eyebrow">Glasslistan</p>
+            <h2>Alla smaker</h2>
+          </div>
+
+          <div class="glass-counter">
+            <span id="modalFlavourCount">0</span>
+            smaker hittades
+          </div>
+        </div>
+
+        <div id="modalFlavourList" class="flavour-grid"></div>
+
+      </section>
+    </div>
+
+  </main>
+
+  <footer>
+    Bäänitha rekommenderar:
+    <br />
+    minst 2 kulor och ett öppet hjärta 🍦
+  </footer>
+
+  <script src="scripts/profilebox.js"></script>
+  <script src="scripts/logout.js"></script>
+  <script src="scripts/glass.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fly från hagen</title>
+
+  <link rel="stylesheet" href="styles/flyhage.css">
+  <link rel="stylesheet" href="styles/global.css">
+</head>
+
+<body class="game-page">
+
+<main class="game-container">
+
+    <div class="game-layout">
+
+        <div class="main-game-content">
+
+        <h1>Fly från hagen 🐑</h1>
+
+        <p class="game-intro">
+            Du är Börje, ett fluffigt får som drömmer om frihet.
+            Samla konstiga saker, bygg mod och fly från hagen.
+        </p>
+
+        <img id="sheep-image"
+            src="images/far.png"
+            class="sheep-game-art"
+            alt="Får">>
+
+        <section class="sheep-type-box">
+            <h2 id="sheep-name-display">Börje</h2>
+            <p id="sheep-type-display">Typ: Modigt får</p>
+        </section>
+
+        <section class="stats-panel">
+
+            <div class="stat-card">
+            <h3>Dag</h3>
+            <span id="day-display">1</span>
+            </div>
+
+            <div class="stat-card">
+            <h3>Tid</h3>
+            <span id="time-display">Dag ☀️</span>
+            </div>
+
+            <div class="stat-card">
+            <h3>Hälsa</h3>
+            <span id="health-display" class="stat-good">100</span>
+            </div>
+
+            <div class="stat-card">
+            <h3>Energi</h3>
+            <span id="hunger-display" class="stat-good">60</span>
+            </div>
+
+            <div class="stat-card">
+            <h3>Ull</h3>
+            <span id="wood-display">0</span>
+            </div>
+
+            <div class="stat-card">
+            <h3>Mod</h3>
+            <span id="courage-display" class="stat-warning">20</span>
+            </div>
+
+        </section>
+
+        <section class="inventory-box">
+            <h2>🎒 Ryggsäck</h2>
+            <p id="inventory-display">Tom</p>
+        </section>
+
+        <section class="action-panel">
+
+            <button id="gather-wood-btn">
+            🧶 Samla ull
+            </button>
+
+            <button id="search-food-btn">
+            🌾 Beta gräs
+            </button>
+
+            <button id="rest-btn">
+            😴 Vila
+            </button>
+
+            <button id="explore-btn">
+            🔎 Utforska
+            </button>
+
+            <button id="search-barn-btn">
+            🪵 Leta i hagen
+            </button>
+
+            <button id="escape-btn">
+            🚪 Försök fly
+            </button>
+
+        </section>
+
+        <div id="log-area" class="log-box">
+            🐑 Du vaknar i hagen...
+        </div>
+
+        <button id="restart-btn">
+            Börja om
+        </button>
+
+        <a href="flyhage.html" class="menu-btn">
+        ⬅ Tillbaka till meny
+        </a>
+
+        </div>
+
+        <aside class="escape-plan-aside">
+
+        <section class="escape-plan-box">
+
+            <h2>🚪 Flyktplan</h2>
+
+            <p id="escape-plan-display"></p>
+
+        </section>
+
+        </aside>
+
+    </div>
+
+</main>
+ <script src="scripts/island-survive.js"></script>
+ <script src="scripts/profilebox.js"></script>
+</body>
+</html>

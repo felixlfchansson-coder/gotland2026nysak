@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schema | Gotland 2026</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body class="schema-page">
+  <div class="page-shell">
+      <div class="side-menu">
+  <button class="hamburger" aria-label="Öppna meny">
+    ☰
+  </button>
+
+  <nav class="side-menu-panel">
+    <a href="profile.html">Profil</a>
+    <a href="index.html">Hem</a>
+    <a href="schema.html">Schema</a>
+    <a href="glassmagasin.html">Bäänitha?</a>
+    <a href="token-hs.html">Tokens</a>
+
+    <button class="logout-button" onclick="logoutUser()">
+      Logga ut
+    </button>
+  </nav>
+</div>
+
+    <div class="day-nav">
+
+  <button class="day-btn active" data-day="onsdag">Onsdag</button>
+
+  <button class="day-btn" data-day="torsdag">Torsdag</button>
+
+  <button class="day-btn" data-day="fredag">Fredag</button>
+
+  <button class="day-btn" data-day="lordag">Lördag</button>
+
+  <button class="day-btn" data-day="sondag">Söndag</button>
+
+</div>
+
+    <main class="schema-layout">
+
+      <aside class="sheep-aside" onclick="sheepTalk()">
+        <img src="images/tidsfar.png" alt="Tidsfåret" class="sheep-image">
+
+        <div id="sheepBubble" class="sheep-bubble">
+          Skynda! Schemat väntar!
+        </div>
+      </aside>
+
+      <section class="schedule-content">
+
+        <section class="day-card active-day" id="onsdag">
+          <h2>Onsdag 13/5</h2>
+
+          <div class="event"><span>14:15</span><p>Påstigning Ånge station</p></div>
+          <div class="event"><span>14:45</span><p>Påstigning Fränsta station</p></div>
+          <div class="event"><span>15:01</span><p>Andakt Felix – Bekymmerlöshetspärlan</p></div>
+          <div class="event"><span>17:40</span><p>Middag Tönnebro</p></div>
+          <div class="event"><span>18:25</span><p>Avfärd</p></div>
+          <div class="event"><span>21:45</span><p>Ankomst First Camp Nickstabadet</p></div>
+          <div class="event"><span>22:00</span><p>Kvällsfika</p></div>
+          <div class="event"><span>00:00</span><p>Tyst och god natt</p></div>
+          <div class="event note"><span></span><p>Håll det packat och städat</p></div>
+        </section>
+
+        <section class="day-card active-day" id="torsdag">
+          <h2>Torsdag 14/5</h2>
+
+          <div class="event"><span>08:30</span><p>Frukost, packa innan</p></div>
+          <div class="event"><span>09:30</span><p>Andakt Lenitha & Skye – Gröna pärlan</p></div>
+          <div class="event"><span>10:00</span><p>Avfärd och incheckning</p></div>
+          <div class="event"><span>11:25</span><p>Färjan avgår</p></div>
+          <div class="event note"><span></span><p>Lunch direkt på färjan</p></div>
+          <div class="event"><span>15:00</span><p>Ankomst Visby</p></div>
+          <div class="event"><span>15:15</span><p>Avfärd</p></div>
+          <div class="event"><span>16:15</span><p>Ankomst Gangvide Farm och incheckning</p></div>
+          <div class="event"><span>17:00</span><p>Middag</p></div>
+          <div class="event"><span>18:00</span><p>Pass Felix + UL – Gudspärlorna, kärlekspärlorna och hemlighetspärlorna med trosbekännelsen på slutet</p></div>
+          <div class="event"><span>21:00</span><p>Andakt Elin – Ökenpärlan</p></div>
+          <div class="event"><span>21:30</span><p>Kvällsfika</p></div>
+          <div class="event"><span>22:00</span><p>Fritid / uppstyrd lek?</p></div>
+          <div class="event"><span>00:00</span><p>Tyst</p></div>
+        </section>
+
+        <section class="day-card" id="fredag">
+          <h2>Fredag 15/5</h2>
+
+          <div class="event"><span>08:00</span><p>Frukost</p></div>
+          <div class="event"><span>09:00</span><p>Andakt UL – Jagpärlan</p></div>
+          <div class="event"><span>09:30</span><p>Pass Elin – Jesus och medmänsklighet</p></div>
+          <div class="event"><span>12:00</span><p>Lunch</p></div>
+          <div class="event"><span>13:00</span><p>Såpafotboll</p></div>
+          <div class="event"><span>15:00</span><p>Fika</p></div>
+          <div class="event"><span>15:30</span><p>Paddling</p></div>
+          <div class="event"><span>18:00</span><p>Middag</p></div>
+          <div class="event"><span>19:00</span><p>Avfärd mot raukarna – Doperinran / Doppärlan, Lenitha</p></div>
+          <div class="event"><span>21:00</span><p>Andakt Lenitha – Nattpärlan</p></div>
+          <div class="event"><span>21:15</span><p>Kvällsfika</p></div>
+          <div class="event"><span>00:00</span><p>Tyst</p></div>
+        </section>
+
+        <section class="day-card" id="lordag">
+          <h2>Lördag 16/5</h2>
+
+          <div class="event"><span>08:00</span><p>Frukost</p></div>
+          <div class="event"><span>09:00</span><p>Andakt Felix – Tystnadspärlorna</p></div>
+          <div class="event"><span>09:30</span><p>Avfärd mot Visby</p></div>
+          <div class="event note"><span></span><p>Glass och rundtur</p></div>
+          <div class="event"><span>11:00</span><p>Lördagsmusik i domkyrkan</p></div>
+          <div class="event"><span>12:30</span><p>Lunch, McDonalds</p></div>
+          <div class="event note"><span></span><p>Fritid</p></div>
+          <div class="event"><span>16:30</span><p>Återresa</p></div>
+          <div class="event"><span>18:00</span><p>Middag + efterrätt</p></div>
+          <div class="event"><span>19:30</span><p>Pärla Frälsarkransen</p></div>
+          <div class="event"><span>21:00</span><p>Andakt Elin – Uppståndelsepärlan</p></div>
+          <div class="event"><span>21:30</span><p>Kvällsfika, städa och packa</p></div>
+          <div class="event"><span>22:00</span><p>Filmkväll</p></div>
+          <div class="event"><span>01:00</span><p>Tyst</p></div>
+        </section>
+
+        <section class="day-card" id="sondag">
+          <h2>Söndag 17/5</h2>
+
+          <div class="event"><span>06:30</span><p>Väckning</p></div>
+          <div class="event"><span>07:00</span><p>Frukost + check av stugor</p></div>
+          <div class="event"><span>08:00</span><p>Avfärd</p></div>
+          <div class="event"><span>09:00</span><p>Ankomst färjeterminalen</p></div>
+          <div class="event"><span>10:20</span><p>Färjan avgår</p></div>
+          <div class="event note"><span></span><p>Lunch på färjan</p></div>
+          <div class="event"><span>13:35</span><p>Ankomst Nynäshamn</p></div>
+          <div class="event"><span>15:20?</span><p>Lunch i Uppsala</p></div>
+        </section>
+
+      </section>
+    </main>
+
+    <footer>
+      <div class="quote-box">
+        “Tidsfåret har redan panik.”
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="scripts/main.js"></script>
+  <script src="scripts/profilebox.js"></script>
+  <script src="scripts/logout.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Lägg sprites här. Ändra filnamn i src/assets.js vid behov.

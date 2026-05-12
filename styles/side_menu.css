@@ -1,0 +1,89 @@
+.side-menu {
+  position: fixed;
+  top: 2rem;
+  left: 28px;
+  z-index: 2000;
+}
+
+.hamburger {
+  width: 58px;
+  height: 58px;
+
+  border: 2px solid rgba(218, 176, 95, 0.8);
+  border-radius: 16px;
+
+  background: rgba(24, 17, 10, 0.9);
+  color: #f6dfaa;
+
+  font-size: 30px;
+  cursor: pointer;
+
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+}
+
+.side-menu-panel {
+  position: absolute;
+  top: 70px;
+  left: 0;
+
+  width: 230px;
+  padding: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  opacity: 0;
+  transform: translateX(-18px);
+  pointer-events: none;
+
+  border: 2px solid rgba(218, 176, 95, 0.75);
+  border-radius: 18px;
+
+  background:
+    linear-gradient(rgba(28, 20, 12, 0.94), rgba(12, 8, 5, 0.96));
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.65);
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.side-menu:hover .side-menu-panel,
+.side-menu:focus-within .side-menu-panel {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.side-menu-panel a,
+.logout-button {
+  padding: 13px 16px;
+
+  border: 1px solid rgba(232, 190, 105, 0.55);
+  border-radius: 12px;
+
+  background: rgba(77, 49, 24, 0.75);
+  color: #ffe8b8;
+
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.side-menu-panel a:hover {
+  background: rgba(142, 95, 38, 0.9);
+}
+
+.logout-button {
+  margin-top: 26px;
+
+  background: linear-gradient(#9b1f1f, #5f0f0f);
+  color: #fff1e6;
+  border-color: rgba(255, 150, 120, 0.65);
+}
+
+.logout-button:hover {
+  background: linear-gradient(#c72a2a, #7a1111);
+}

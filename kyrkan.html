@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fårkyrkan</title>
+  <<link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="styles/side_menu.css">
+  <link rel="stylesheet" href="styles/kyrkan.css">
+     <div class="side-menu">
+  <button class="hamburger" aria-label="Öppna meny">
+    ☰
+  </button>
+
+  <nav class="side-menu-panel">
+    <a href="profile.html">Profil</a>
+    <a href="index.html">Hem</a>
+    <a href="schema.html">Schema</a>
+    <a href="glassmagasin.html">Bäänitha?</a>
+    <a href="token-hs.html">Tokens</a>
+
+    <button class="logout-button" onclick="logoutUser()">
+      Logga ut
+    </button>
+  </nav>
+</div>
+</head>
+<body>
+  <main class="start-yta">
+    <a href="gudstjanst.html" aria-label="Gå till gudstjänst">
+      <img src="images/gudstjanst/klockan.png" alt="Klicka för att ringa till gudstjänst" class="ring-knapp" />
+    </a>
+
+    <button type="button" onclick="oppnaPsalmbok()" aria-label="Öppna psalmboken" style="all: unset;">
+      <img src="images/gudstjanst/psalmbok.png" alt="Öppna psalmboken" class="psalmbok-knapp" />
+    </button>
+  </main>
+
+  <section id="psalmbokSida" class="psalmbok-sida" aria-label="Psalmboken">
+    <div class="psalmbok-topp">
+      <h1>Psalmboken</h1>
+      <button class="stang-knapp" onclick="stangPsalmbok()">Stäng ✕</button>
+    </div>
+
+    <div class="psalmer">
+      <article class="psalm">
+        <h2>Psalm 89</h2>
+        <p>
+<strong>Se jag vill bära ditt budskapherre</strong>
+
+Se jag vill bära ditt budskap herre,/ av hjärtat sjunga ditt lov och pris./
+Med glädje vill jag ditt ord förkunna, som gör den svage vis.
+
+Ref:Gud låt ditt ord i mitt liv få råda, att andra där din kärlek kan se.
+Ja, låt ditt ord i mitt liv få råda, då kan din vilja ske.
+
+Ty om ditt ord med mitt liv jag döljer/ jag döljer livet, som du oss ger,/ 
+som Jesus kom att oss uppenbara, då han till oss steg ner. Ref:
+
+Gud låt oss känna din Andes ledning,/ så att vi vet att din väg vi går./ 
+Låt elden brinna i våra hjärtan, till dess vi målet når. Ref:
+        </p>
+      </article>
+
+      <article class="psalm">
+        <h2>Psalm 762</h2>
+        <p>
+<strong>Du är en bön</strong>
+
+Bli stilla låt tystnaden föra dig nära
+Närvaron finns där. En kraft som vill bära,
+ja, öppna det rum som står låst djupt inom dig
+Barnet som bor där och stumt skriker "hör mig!"
+Du är en bön, Gud är en bön
+
+Låt oron få sjunka som stenar mot botten,
+Hela ditt liv är ett samtal med honom som
+bär universum och i ditt hjärta.
+han delar ditt liv både glädjen och smärtan
+Du är en bön Gud är din bön
+
+Bli stilla låt tystnaden föra dig nära.
+Närvaron finns där. En kraft som vill bära
+ja, våga den tillit som bor djupt inom dig.
+Lyssna till rösten som kallar dig: "Följ mig!
+Du är en bön, Jag är din bön."
+        </p>
+      </article>
+
+      <article class="psalm">
+        <h2>Psalm 725</h2>
+        <p>
+<strong>Endast av nåd</strong> 
+
+Endast av nåd får vi komma.
+Endast Din nåd ger oss liv.
+Ej genom nå´t vi kan göra.
+Endast Ditt blod ger oss liv.
+
+In i din närhet Du kallar
+Drar oss till Dig.
+
+Och på Din nåd vill vi svara:
+Herre vi kommer nu.
+Herre vi kommer nu.
+
+Herre Du är ju helt rättvis vem kan då
+nalkas Din heliga kärlek och ändå bestå.
+Genom din seger på korset så är vi
+fria från synden och döden och Du ger oss liv.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <script>
+    function oppnaPsalmbok() {
+      document.getElementById("psalmbokSida").classList.add("visa");
+    }
+
+    function stangPsalmbok() {
+      document.getElementById("psalmbokSida").classList.remove("visa");
+    }
+  </script>
+  <script src="scripts/profilebox.js"></script>
+  <script src="scripts/logout.js"></script>
+</body>
+</html>

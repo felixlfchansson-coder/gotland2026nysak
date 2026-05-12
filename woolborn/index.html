@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Woolborn</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="bg"></div>
+
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Fårlandet DnD</p>
+        <h1>WOOLBORN</h1>
+        <p class="subtitle">Shadow of the Crater</p>
+      </div>
+
+      <div class="top-actions">
+        <button id="saveBtn" class="ghost">Spara</button>
+        <button id="loadBtn" class="ghost">Ladda</button>
+        <button id="resetBtn" class="danger">Nytt spel</button>
+      </div>
+    </header>
+
+    <section id="startMenu" class="panel start-menu">
+      <p class="eyebrow">Välj svårighetsgrad</p>
+      <h2 class="menu-title">Hur farligt ska Fårlandet vara?</h2>
+      <p class="menu-text">
+        Svårigheten påverkar fiendernas HP, träffkrav och skada.
+      </p>
+
+      <div class="difficulty-grid">
+        <button onclick="startNewGame('easy')">
+          Easy
+          <span>Mer story, snällare strider</span>
+        </button>
+
+        <button onclick="startNewGame('normal')">
+          Normal
+          <span>Balanserad Woolborn-resa</span>
+        </button>
+
+        <button onclick="startNewGame('hard')">
+          Hard
+          <span>Tuffare bossar och mindre marginaler</span>
+        </button>
+
+        <button onclick="startNewGame('nightmare')">
+          Nightmare
+          <span>För får med dödslängtan</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="gameLayout" class="layout hidden">
+      <aside class="panel side">
+        <h2>Karaktär</h2>
+        <div id="playerCard"></div>
+
+        <h2>Stats</h2>
+        <div id="stats"></div>
+
+        <h2>Companions</h2>
+        <div id="companions"></div>
+
+        <h2>Abilities</h2>
+        <ul id="abilities"></ul>
+
+        <h2>Inventory</h2>
+        <ul id="inventory"></ul>
+
+        <h2>Questlogg</h2>
+        <div id="questlog"></div>
+
+        <h2>Systemlogg</h2>
+        <div id="log"></div>
+      </aside>
+
+      <section class="panel story-panel">
+        <div id="chapterLabel"></div>
+        <div id="story"></div>
+        <div id="combatBox" class="hidden"></div>
+        <div id="choices"></div>
+      </section>
+    </section>
+  </main>
+
+<script src="js/config.js"></script>
+<script src="js/state.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/difficulty.js"></script>
+<script src="js/player.js"></script>
+<script src="js/abilities.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/render.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/systems.js"></script>
+</body>
+</html>

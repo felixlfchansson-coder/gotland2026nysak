@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  background: #050505;
+  color: white;
+  font-family: sans-serif;
+}
+
+/* PROFILE BOX */
+
+.profile-box {
+  position: fixed;
+
+  top: 1rem;
+  right: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  padding: 0.8rem 1rem;
+
+  border-radius: 18px;
+
+  background: rgba(0,0,0,0.45);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(10px);
+
+  z-index: 9999;
+
+  cursor: pointer;
+}
+
+.profile-avatar {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.08);
+}
+
+.profile-label {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 0.7rem;
+}
+
+.profile-name {
+  margin: 0;
+  font-weight: bold;
+}

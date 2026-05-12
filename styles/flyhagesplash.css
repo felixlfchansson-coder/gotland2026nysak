@@ -1,0 +1,141 @@
+.game-page {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(circle at top,
+      #5a4635 0%,
+      #2e221b 45%,
+      #16110d 100%);
+
+  font-family: Arial, sans-serif;
+
+  overflow-x: hidden;
+}
+
+/* subtila linjer ovanpå */
+.game-page::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+
+  pointer-events: none;
+}
+
+.start-page {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 34px;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* STÖRRE GAMECARD */
+.start-image {
+  width: min(980px, 92vw);
+
+  border-radius: 30px;
+
+  border: 2px solid rgba(230, 170, 70, 0.55);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.55),
+    0 0 25px rgba(255,190,90,0.12);
+
+  transition: 0.3s ease;
+}
+
+.start-image:hover {
+  transform: scale(1.01);
+}
+
+/* KNAPPAR */
+.start-game-btn,
+.back-games-btn {
+
+  text-decoration: none;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(75,55,42,0.95),
+      rgba(42,28,20,0.95)
+    );
+
+  color: #f0b443;
+
+  border: 1px solid rgba(255,190,90,0.45);
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35);
+
+  transition: 0.25s ease;
+
+  font-weight: bold;
+}
+
+/* STARTA SPELET */
+.start-game-btn {
+  padding: 22px 52px;
+  font-size: 2rem;
+}
+
+/* TILLBAKA */
+.back-games-btn {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+
+  color: #f5e2bd;
+}
+
+.start-game-btn:hover,
+.back-games-btn:hover {
+
+  transform: translateY(-4px);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(95,70,50,1),
+      rgba(52,36,25,1)
+    );
+
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.45),
+    0 0 18px rgba(255,190,90,0.18);
+}
+
+@media (max-width: 700px) {
+
+  .start-image {
+    width: 100%;
+  }
+
+  .start-game-btn {
+    width: 90%;
+    text-align: center;
+    font-size: 1.4rem;
+  }
+
+  .back-games-btn {
+    width: 90%;
+    text-align: center;
+  }
+}

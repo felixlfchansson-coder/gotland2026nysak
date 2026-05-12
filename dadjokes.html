@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Filosofi</title>
+<link rel="stylesheet" href="styles/global.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  min-height: 130vh;
+  overflow: hidden;
+
+  background-image: url("images/classrooms/dads_class.png");
+  background-size: cover;
+  background-position: 42% center;
+  background-repeat: no-repeat;
+
+  font-family: Georgia, serif;
+}
+
+/* TILLBAKA-KNAPP */
+.tillbaka-knapp {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.tillbaka-knapp img {
+  width: clamp(130px, 35vw, 200px);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.tillbaka-knapp img:hover {
+  transform: scale(1.08);
+}
+
+/* FAKTARUTA / SKYLT */
+.fakta-box {
+  position: absolute;
+
+  top: 60%;
+  left: 80%;
+
+  transform: translate(-23%, -80%);
+
+  width: 92vw;
+  max-width: 500px;
+
+  aspect-ratio: 1 / 1;
+
+  background-image: url("images/classrooms/skylt_dj.png");
+  background-size: 70% 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease, filter 0.2s ease;
+
+  animation: glow 3s infinite alternate;
+
+  /* NYTT */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+}
+
+
+/* HOVER */
+.fakta-box:hover {
+  transform: translate(-23%, -80%) scale(1.03);
+}
+
+
+/* FAKTATEXT */
+.fakta-text {
+  width: 45%;
+
+  font-family: Georgia, serif;
+  font-size: clamp(0.8rem, 3.5vw, 1.2rem);
+
+  line-height: 1.35;
+
+  color: #f4d9a5;
+
+  text-align: center;
+
+  text-shadow: 0 0 8px rgba(0,0,0,0.8);
+}
+
+/* GLOW */
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 5px rgba(255,180,80,0.2));
+  }
+
+  to {
+    filter: drop-shadow(0 0 20px rgba(255,180,80,0.6));
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+  body {
+    background-position: center;
+  }
+
+  .tillbaka-knapp {
+    top: 30px;
+    left: 30px;
+  }
+
+  .tillbaka-knapp img {
+    width: 200px;
+  }
+
+  .fakta-box {
+    top: 72%;
+    left: 78%;
+
+    width: 38vw;
+    max-width: 560px;
+  }
+
+  .fakta-titel {
+    font-size: clamp(1rem, 1.6vw, 1.6rem);
+  }
+
+  .fakta-text {
+    font-size: clamp(0.9rem, 1.3vw, 1.4rem);
+  }
+}
+  </style>
+</head>
+<a href="fakta.html" class="tillbaka-knapp">
+  <img src="images/classrooms/tillbaka.png" alt="Tillbaka">
+</a>
+<body>
+
+   <div class="fakta-box" id="faktaKnapp">
+
+  <p class="fakta-text" id="faktaText">
+    Denna! Hahaha tryck här
+  </p>
+</div>
+
+</div>
+</div>
+
+</body>
+<script>
+
+let faktaData = [];
+
+fetch("fakta_structured.json")
+  .then(response => response.json())
+  .then(data => {
+
+    // Hämtar dadjokessektionen
+    faktaData = data.dadjokes.facts;
+
+  });
+
+const faktaKnapp = document.getElementById("faktaKnapp");
+const faktaText = document.getElementById("faktaText");
+
+faktaKnapp.addEventListener("click", () => {
+  const slumpTal = Math.floor(Math.random() * faktaData.length);
+
+  faktaText.textContent = faktaData[slumpTal];
+});
+
+</script>
+<script src="scripts/profilebox.js"></script>
+</html>

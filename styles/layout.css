@@ -1,0 +1,45 @@
+.page-shell {
+  width: min(1400px, 94vw);
+  margin: 0 auto;
+  padding: 18px 0 40px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.divider {
+  width: 180px;
+  height: 2px;
+  margin: 22px 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.quote-bar {
+  position: relative;
+  margin-top: 22px;
+  padding: 18px 24px;
+  text-align: center;
+  font-size: clamp(1.15rem, 2vw, 1.8rem);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(96, 61, 36, 0.96), rgba(52, 31, 18, 0.96));
+  border: 2px solid rgba(228, 195, 127, 0.18);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  text-shadow: var(--text-shadow);
+}
+
+.quote-box {
+  margin-top: 35px;
+  padding: 18px 24px;
+  text-align: center;
+  font-size: clamp(1.15rem, 2vw, 1.8rem);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(96, 61, 36, 0.96), rgba(52, 31, 18, 0.96));
+  border: 2px solid rgba(228, 195, 127, 0.18);
+  box-shadow: var(--shadow);
+  text-shadow: var(--text-shadow);
+}
