@@ -345,6 +345,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (success > 0.5) {
 
   sheep.log.push(`🎉 ${sheep.name} flydde från hagen!`);
+  unlockAchievement("flyktmastare");
+
+if (sheep.day <= 5) {
+  unlockAchievement("snabb_far");
+}
 
   // Sorting Hat progress
   markFlyhageCharacterWin(sheep.name);

@@ -2,11 +2,12 @@ import { CONFIG, TEAM, ORDER } from "./config.js";
 import { FACTIONS } from "./factions.js";
 import { Unit, Structure, Effect, Projectile } from "./entities.js";
 import { markShaolinHardWin } from "../../scripts/cosmetics.js";
-
+import { unlockAchievement } from "../../scripts/achievements.js";
 const DIFFICULTY = {
   easy:   { enemySpawnMult: 1.35, aiXpMult: 1.05, enemyGoldMult: 0.85 },
   normal: { enemySpawnMult: 1.0,  aiXpMult: 1.35, enemyGoldMult: 1.0 },
-  hard:   { enemySpawnMult: 0.72, aiXpMult: 1.75, enemyGoldMult: 1.15 }
+  hard:   { enemySpawnMult: 0.72, aiXpMult: 1.75, enemyGoldMult: 1.15 },
+  insane: { enemySpawnMult: 0.5, aiXpMult: 2, enemyGoldMult: 1.2 },
 };
 
 export class Game {
@@ -184,8 +185,22 @@ export class Game {
     const u = new Unit({team:TEAM.PLAYER, x:CONFIG.playerBaseX + 145, def, faction:this.factionKey});
     u.order = this.order;
     this.units.push(u);
-    this.spawnTimer = CONFIG.spawnCooldown;
-    return true;
+
+// Achievement unlocks när special-units spawnas
+if (def.key === "stormmage") {
+  unlockAchievement("storm_master");
+}
+
+if (def.key === "susano") {
+  unlockAchievement("susano_shadow");
+}
+
+if (def.key === "woolkong") {
+  unlockAchievement("woolkong_king");
+}
+
+this.spawnTimer = CONFIG.spawnCooldown;
+return true;
   }
 
   spawnEnemyUnit() {
@@ -632,6 +647,15 @@ export class Game {
   this.difficultyKey === "hard"
 ) {
   markShaolinHardWin();
+}
+unlockAchievement("sheep_line_clear");
+
+if (this.difficultyKey === "hard") {
+  unlockAchievement("sheep_line_hard");
+}
+
+if (this.difficultyKey === "insane") {
+  unlockAchievement("sheep_line_insane");
 }
 
     this.gameOver = "VICTORY";

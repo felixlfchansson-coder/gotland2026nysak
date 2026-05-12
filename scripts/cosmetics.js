@@ -68,6 +68,35 @@ export const COSMETICS = {
     image: "images/cosmetics/bodies/viridian-sheep.png",
     fallback: "images/cosmetics/fallback.png",
   },
+  cowboy_hat: {
+  id: "cowboy_hat",
+  type: "hat",
+  title: "Cowboy",
+  unlockType: "qr",
+  requirement: "QR Unlock",
+  image: "images/cosmetics/hats/cowboy.png",
+  fallback: "images/cosmetics/fallback.png",
+},
+
+doffy_glasses: {
+  id: "doffy_glasses",
+  type: "glasses",
+  title: "Doffy",
+  unlockType: "qr",
+  requirement: "QR Unlock",
+  image: "images/cosmetics/glasses/doffy.png",
+  fallback: "images/cosmetics/fallback.png",
+},
+
+strawhat: {
+  id: "strawhat",
+  type: "hat",
+  title: "Stråhatt",
+  unlockType: "qr",
+  requirement: "QR Unlock",
+  image: "images/cosmetics/hats/strawhat.png",
+  fallback: "images/cosmetics/fallback.png",
+},
 };
 
 export function getUnlockedCosmetics() {
@@ -185,4 +214,22 @@ export function checkCosmeticUnlocks() {
   if (getCounter("timeSheep") >= 10) {
     unlockCosmetic("viridian_sheep");
   }
+}
+const QR_CODES = {
+  GOTLAND_COWBOY_2026: "cowboy_hat",
+  DOFFY_SECRET_2026: "doffy_glasses",
+  STRAWHAT_GOTLAND_2026: "strawhat",
+};
+
+export function unlockQRCode(code) {
+
+  const cosmeticId = QR_CODES[code];
+
+  if (!cosmeticId) {
+    return false;
+  }
+
+  unlockCosmetic(cosmeticId);
+
+  return cosmeticId;
 }

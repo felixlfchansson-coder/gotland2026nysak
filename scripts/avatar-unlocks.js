@@ -1,111 +1,101 @@
-// =========================
-// Avatar unlocks
-// Samma IDs som token-hs.html
-// =========================
+const unlockedAvatarItems = JSON.parse(
+  localStorage.getItem("unlockedAvatarItems") || "[]"
+);
 
-const unlockedItems = JSON.parse(
-  localStorage.getItem("unlockedItems")
-) || [
-  "body_base",
+const unlockedCosmetics = JSON.parse(
+  localStorage.getItem("unlockedCosmetics") || "[]"
+);
+
+const COSMETIC_TO_AVATAR = {
+  black_sheep: "body_black",
+  crimson_sheep: "body_crimson",
+  petrol_sheep: "body_petrol",
+  viridian_sheep: "body_viridian",
+
+  harry_potter: "glasses_harry_potter",
+  lee_sin: "glasses_lee_sin",
+  sorting_hat: "hat_sortinghat",
+};
+
+const START_UNLOCKS = [
   "body_white",
+  "glasses_sunglasses",
   "hat_tophat",
-  "glasses_sunglasses"
 ];
 
-document.querySelectorAll(".avatar-item").forEach((button) => {
-  const unlockId = button.dataset.unlockId;
+function isUnlocked(unlockId) {
+  if (START_UNLOCKS.includes(unlockId)) return true;
+  if (unlockedAvatarItems.includes(unlockId)) return true;
 
-  if (!unlockId) return;
+  return unlockedCosmetics.some(
+    cosmeticId => COSMETIC_TO_AVATAR[cosmeticId] === unlockId
+  );
+}
 
-  if (unlockedItems.includes(unlockId)) {
-    button.classList.remove("locked");
-    button.classList.add("unlocked");
-    button.disabled = false;
+function equipItem(item) {
+  const type = item.dataset.type;
+  const src = item.dataset.src;
+
+  if (type === "body") {
+    document.getElementById("avatarBody").src = src;
+  }
+
+  if (type === "glasses") {
+    document.getElementById("avatarGlasses").src = src;
+  }
+
+  if (type === "hat") {
+    let hatLayer = document.getElementById("avatarHat");
+
+    if (!hatLayer) {
+      hatLayer = document.createElement("img");
+      hatLayer.id = "avatarHat";
+      hatLayer.className = "avatar-layer";
+      document.querySelector(".avatar-preview").appendChild(hatLayer);
+    }
+
+    hatLayer.src = src;
+  }
+
+  localStorage.setItem(`equipped_${type}`, src);
+}
+
+document.querySelectorAll(".avatar-item").forEach((item) => {
+  const unlockId = item.dataset.unlockId;
+
+  if (isUnlocked(unlockId)) {
+    item.classList.remove("locked");
+    item.classList.add("unlocked");
+
+    item.addEventListener("click", () => {
+      equipItem(item);
+    });
   } else {
-    button.classList.remove("unlocked");
-    button.classList.add("locked");
-    button.disabled = true;
+    item.classList.remove("unlocked");
+    item.classList.add("locked");
   }
 });
 
-document.querySelectorAll(".avatar-item").forEach((button) => {
-  button.addEventListener("click", () => {
-    if (button.classList.contains("locked")) return;
-
-    const type = button.dataset.type;
-    const src = button.dataset.src;
-
-    if (!type || !src) return;
-
-    if (type === "body") {
-      document.getElementById("avatarBody").src = src;
-      localStorage.setItem("selectedBody", src);
-    }
-
-    if (type === "hat") {
-      let hatLayer = document.getElementById("avatarHat");
-
-      if (!hatLayer) {
-        hatLayer = document.createElement("img");
-        hatLayer.id = "avatarHat";
-        hatLayer.className = "avatar-layer";
-        document.querySelector(".avatar-preview").appendChild(hatLayer);
-      }
-
-      hatLayer.src = src;
-      localStorage.setItem("selectedHat", src);
-    }
-
-    if (type === "glasses") {
-      document.getElementById("avatarGlasses").src = src;
-      localStorage.setItem("selectedGlasses", src);
-    }
-
-    if (type === "shirt") {
-      let shirtLayer = document.getElementById("avatarShirt");
-
-      if (!shirtLayer) {
-        shirtLayer = document.createElement("img");
-        shirtLayer.id = "avatarShirt";
-        shirtLayer.className = "avatar-layer";
-        document.querySelector(".avatar-preview").appendChild(shirtLayer);
-      }
-
-      shirtLayer.src = src;
-      localStorage.setItem("selectedShirt", src);
-    }
-  });
-});
-
-// =========================
-// Load selected avatar
-// =========================
-
-const selectedBody = localStorage.getItem("selectedBody");
-const selectedGlasses = localStorage.getItem("selectedGlasses");
-const selectedHat = localStorage.getItem("selectedHat");
-const selectedShirt = localStorage.getItem("selectedShirt");
-
-if (selectedBody && document.getElementById("avatarBody")) {
-  document.getElementById("avatarBody").src = selectedBody;
+const equippedBody = localStorage.getItem("equipped_body");
+if (equippedBody) {
+  document.getElementById("avatarBody").src = equippedBody;
 }
 
-if (selectedGlasses && document.getElementById("avatarGlasses")) {
-  document.getElementById("avatarGlasses").src = selectedGlasses;
+const equippedGlasses = localStorage.getItem("equipped_glasses");
+if (equippedGlasses) {
+  document.getElementById("avatarGlasses").src = equippedGlasses;
 }
 
-if (selectedHat) {
-  const hatLayer = document.createElement("img");
-  hatLayer.id = "avatarHat";
-  hatLayer.className = "avatar-layer";
-  hatLayer.src = selectedHat;
-  document.querySelector(".avatar-preview").appendChild(hatLayer);
-}
+const equippedHat = localStorage.getItem("equipped_hat");
+if (equippedHat) {
+  let hatLayer = document.getElementById("avatarHat");
 
-if (selectedShirt) {
-  const shirtLayer = document.createElement("img");
-  shirtLayer.id = "avatarShirt";
-  shirtLayer.className = "avatar-layer";
-  shirtLayer.src = selectedShirt;
-  document.querySelector(".avatar-preview").appendChild(shirtLayer);
+  if (!hatLayer) {
+    hatLayer = document.createElement("img");
+    hatLayer.id = "avatarHat";
+    hatLayer.className = "avatar-layer";
+    document.querySelector(".avatar-preview").appendChild(hatLayer);
+  }
+
+  hatLayer.src = equippedHat;
 }

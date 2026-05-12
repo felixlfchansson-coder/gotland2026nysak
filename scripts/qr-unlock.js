@@ -1,107 +1,117 @@
-const qrMessage = document.getElementById("qr-message");
-
-const openQrButton = document.getElementById("openQrButton");
-const closeQrButton = document.getElementById("closeQrButton");
-const qrPopupPanel = document.getElementById("qrPopupPanel");
+const QR_UNLOCKS = {
+  GOTLAND_COWBOY_2026: "hat_cowboy",
+  GOTLAND_DOFFY_2026: "glasses_doffy",
+  GOTLAND_STRAWHAT_2026: "hat_strawhat",
+  GOTLAND_HAWAII_2026: "glasses_hawaii",
+  GOTLAND_SNORKEL_2026: "glasses_snorkel",
+  GOTLAND_MAGENTA_2026: "body_magenta",
+  GOTLAND_SENAP_2026: "body_senap",
+};
 
 let qrScanner = null;
-let scannerIsRunning = false;
+let scannerRunning = false;
 
-async function unlockFromQr(code) {
-  const {
-    data: { user }
-  } = await supabaseClient.auth.getUser();
+function getUnlockedAvatarItems() {
+  return JSON.parse(localStorage.getItem("unlockedAvatarItems") || "[]");
+}
 
-  if (!user) {
-    qrMessage.textContent = "Du måste vara inloggad.";
+function unlockAvatarItem(id) {
+  const unlocked = getUnlockedAvatarItems();
+
+  if (!unlocked.includes(id)) {
+    unlocked.push(id);
+    localStorage.setItem("unlockedAvatarItems", JSON.stringify(unlocked));
+  }
+
+  return id;
+}
+
+function refreshAvatarLocks() {
+  const unlocked = getUnlockedAvatarItems();
+
+  document.querySelectorAll(".avatar-item").forEach((button) => {
+    const id = button.dataset.unlockId;
+
+    if (unlocked.includes(id)) {
+      button.classList.remove("locked");
+      button.classList.add("unlocked");
+    }
+  });
+}
+
+function showQrMessage(message) {
+  const qrMessage = document.getElementById("qr-message");
+  if (qrMessage) qrMessage.textContent = message;
+}
+
+function handleQrCode(decodedText) {
+  const rawCode = String(decodedText || "").trim();
+  const cosmeticId = QR_UNLOCKS[rawCode];
+
+  if (!cosmeticId) {
+    showQrMessage("❌ Ogiltig QR-kod.");
     return;
   }
 
-  const { data: qrItem, error: qrError } = await supabaseClient
-    .from("avatar_qr_codes")
-    .select("*")
-    .eq("code", code)
-    .eq("active", true)
-    .single();
+  unlockAvatarItem(cosmeticId);
+  refreshAvatarLocks();
 
-  if (qrError || !qrItem) {
-    qrMessage.textContent = "Ogiltig QR-kod.";
-    return;
-  }
+  const itemButton = document.querySelector(
+    `.avatar-item[data-unlock-id="${cosmeticId}"]`
+  );
 
-  const { error: unlockError } = await supabaseClient
-    .from("avatar_unlocks")
-    .upsert({
-      user_id: user.id,
-      item_type: qrItem.item_type,
-      item_src: qrItem.item_src,
-      unlocked: true
-    });
+  const itemName = itemButton?.textContent?.trim() || cosmeticId;
 
-  if (unlockError) {
-    console.error(unlockError);
-    qrMessage.textContent = "Kunde inte låsa upp item.";
-    return;
-  }
-
-  qrMessage.textContent = "Upplåst! 🎉";
-
-  setTimeout(() => {
-    location.reload();
-  }, 800);
+  showQrMessage(`✅ Upplåst: ${itemName}`);
 }
 
-function openQrPanel() {
-  qrPopupPanel.classList.add("show");
-  qrMessage.textContent = "Rikta kameran mot QR-koden.";
+window.addEventListener("DOMContentLoaded", () => {
+  refreshAvatarLocks();
 
-  if (!qrScanner) {
-    qrScanner = new Html5QrcodeScanner(
-      "qr-reader",
-      {
-        fps: 10,
-        qrbox: 220
-      },
-      false
-    );
-  }
+  const openButton = document.getElementById("openQrButton");
+  const closeButton = document.getElementById("closeQrButton");
+  const panel = document.getElementById("qrPopupPanel");
 
-  if (!scannerIsRunning) {
-    qrScanner.render((decodedText) => {
-      scannerIsRunning = false;
-      unlockFromQr(decodedText);
-      qrScanner.clear();
-    });
+  openButton?.addEventListener("click", async () => {
+    panel?.classList.add("open");
+    showQrMessage("Rikta kameran mot QR-koden.");
 
-    scannerIsRunning = true;
-  }
-}
+    if (!window.Html5Qrcode) {
+      showQrMessage("QR-läsaren kunde inte laddas.");
+      return;
+    }
 
-function closeQrPanel() {
-  qrPopupPanel.classList.remove("show");
+    if (!qrScanner) {
+      qrScanner = new Html5Qrcode("qr-reader");
+    }
 
-  if (qrScanner && scannerIsRunning) {
-    qrScanner.clear();
-    scannerIsRunning = false;
-  }
-}
+    if (scannerRunning) return;
 
-openQrButton.addEventListener("click", () => {
-  if (qrPopupPanel.classList.contains("show")) {
-    closeQrPanel();
-  } else {
-    openQrPanel();
-  }
-});
+    try {
+      await qrScanner.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: 240,
+        },
+        (decodedText) => {
+          handleQrCode(decodedText);
+        }
+      );
 
-closeQrButton.addEventListener("click", closeQrPanel);
+      scannerRunning = true;
+    } catch (error) {
+      showQrMessage("Kunde inte starta kameran.");
+      console.error(error);
+    }
+  });
 
-document.addEventListener("click", (event) => {
-  const clickedInside =
-    qrPopupPanel.contains(event.target) ||
-    openQrButton.contains(event.target);
+  closeButton?.addEventListener("click", async () => {
+    panel?.classList.remove("open");
 
-  if (!clickedInside) {
-    closeQrPanel();
-  }
+    if (qrScanner && scannerRunning) {
+      await qrScanner.stop();
+      scannerRunning = false;
+    }
+  });
 });
