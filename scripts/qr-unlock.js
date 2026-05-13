@@ -6,13 +6,18 @@ const QR_UNLOCKS = {
   GOTLAND_SNORKEL_2026: "glasses_snorkel",
   GOTLAND_MAGENTA_2026: "body_magenta",
   GOTLAND_SENAP_2026: "body_senap",
+
+  // Senare superreward
+  DRAGON_DEN_2026: "superreward_dragon_sheep",
 };
 
-let qrScanner = null;
+let html5QrCode = null;
 let scannerRunning = false;
 
 function getUnlockedAvatarItems() {
-  return JSON.parse(localStorage.getItem("unlockedAvatarItems") || "[]");
+  return JSON.parse(
+    localStorage.getItem("unlockedAvatarItems") || "[]"
+  );
 }
 
 function unlockAvatarItem(id) {
@@ -20,10 +25,11 @@ function unlockAvatarItem(id) {
 
   if (!unlocked.includes(id)) {
     unlocked.push(id);
-    localStorage.setItem("unlockedAvatarItems", JSON.stringify(unlocked));
+    localStorage.setItem(
+      "unlockedAvatarItems",
+      JSON.stringify(unlocked)
+    );
   }
-
-  return id;
 }
 
 function refreshAvatarLocks() {
@@ -40,78 +46,103 @@ function refreshAvatarLocks() {
 }
 
 function showQrMessage(message) {
-  const qrMessage = document.getElementById("qr-message");
-  if (qrMessage) qrMessage.textContent = message;
+  const msg = document.getElementById("qr-message");
+  if (msg) msg.textContent = message;
+}
+
+async function stopScanner() {
+  if (html5QrCode && scannerRunning) {
+    try {
+      await html5QrCode.stop();
+      await html5QrCode.clear();
+    } catch (err) {
+      console.warn("QR stop error:", err);
+    }
+
+    scannerRunning = false;
+  }
 }
 
 function handleQrCode(decodedText) {
-  const rawCode = String(decodedText || "").trim();
-  const cosmeticId = QR_UNLOCKS[rawCode];
+  const code = String(decodedText || "").trim();
+  const itemId = QR_UNLOCKS[code];
 
-  if (!cosmeticId) {
+  if (!itemId) {
     showQrMessage("❌ Ogiltig QR-kod.");
     return;
   }
 
-  unlockAvatarItem(cosmeticId);
+  unlockAvatarItem(itemId);
   refreshAvatarLocks();
 
-  const itemButton = document.querySelector(
-    `.avatar-item[data-unlock-id="${cosmeticId}"]`
-  );
+  showQrMessage(`✅ Upplåst: ${itemId}`);
 
-  const itemName = itemButton?.textContent?.trim() || cosmeticId;
-
-  showQrMessage(`✅ Upplåst: ${itemName}`);
+  stopScanner();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  refreshAvatarLocks();
-
   const openButton = document.getElementById("openQrButton");
   const closeButton = document.getElementById("closeQrButton");
   const panel = document.getElementById("qrPopupPanel");
 
-  openButton?.addEventListener("click", async () => {
-    panel?.classList.add("open");
-    showQrMessage("Rikta kameran mot QR-koden.");
+  if (!openButton || !closeButton || !panel) {
+    console.warn("QR elements saknas på sidan.");
+    return;
+  }
+
+  refreshAvatarLocks();
+
+  openButton.addEventListener("click", async () => {
+    panel.classList.add("open");
+    panel.style.display = "block";
+
+    showQrMessage("Startar kamera...");
 
     if (!window.Html5Qrcode) {
-      showQrMessage("QR-läsaren kunde inte laddas.");
+      showQrMessage("❌ QR-biblioteket laddades inte.");
       return;
     }
 
-    if (!qrScanner) {
-      qrScanner = new Html5Qrcode("qr-reader");
-    }
-
-    if (scannerRunning) return;
-
     try {
-      await qrScanner.start(
-        { facingMode: "environment" },
+      html5QrCode = new Html5Qrcode("qr-reader");
+
+      const cameras = await Html5Qrcode.getCameras();
+
+      if (!cameras || cameras.length === 0) {
+        showQrMessage("❌ Ingen kamera hittades.");
+        return;
+      }
+
+      const cameraId =
+        cameras.find(cam =>
+          cam.label.toLowerCase().includes("back")
+        )?.id || cameras[0].id;
+
+      await html5QrCode.start(
+        cameraId,
         {
           fps: 10,
-          qrbox: 240,
+          qrbox: {
+            width: 240,
+            height: 240
+          }
         },
-        (decodedText) => {
-          handleQrCode(decodedText);
-        }
+        handleQrCode
       );
 
       scannerRunning = true;
-    } catch (error) {
-      showQrMessage("Kunde inte starta kameran.");
-      console.error(error);
+      showQrMessage("Rikta kameran mot QR-koden.");
+
+    } catch (err) {
+      console.error("QR camera error:", err);
+      showQrMessage("❌ Kunde inte öppna kameran. Tillåt kamera i webbläsaren.");
     }
   });
 
-  closeButton?.addEventListener("click", async () => {
-    panel?.classList.remove("open");
+  closeButton.addEventListener("click", async () => {
+    panel.classList.remove("open");
+    panel.style.display = "none";
 
-    if (qrScanner && scannerRunning) {
-      await qrScanner.stop();
-      scannerRunning = false;
-    }
+    await stopScanner();
   });
 });

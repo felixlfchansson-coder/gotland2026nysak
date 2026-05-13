@@ -686,47 +686,88 @@ button.has-frame:disabled {
   }
 }
 
-/* När mobilen är liggande: använd hela skärmen bättre */
-@media (max-width: 900px) and (orientation: landscape) {
-  canvas {
+/* Small mobile landscape fix */
+@media (max-width: 950px) and (orientation: landscape) {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #gameShell {
     width: 100vw;
     height: 100vh;
-    max-width: none;
-    max-height: none;
+    overflow: hidden;
+  }
+
+  canvas {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: contain;
+    display: block;
   }
 
   .topbar {
-    top: 6px;
-    left: 6px;
-    right: 6px;
-    gap: 5px;
-  }
-
-  .pill {
-    font-size: 11px;
-    padding: 5px 8px;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    transform: scale(0.82);
+    transform-origin: top left;
   }
 
   .leftPanel {
-    top: 60px;
-    left: 6px;
+    top: 48px;
+    left: 4px;
+    transform: scale(0.78);
+    transform-origin: top left;
   }
 
   #menuButtons {
-    top: 60px;
-    right: 6px;
+    top: 48px;
+    right: 4px;
+    transform: scale(0.78);
+    transform-origin: top right;
   }
 
   .bottomPanel {
-    left: 6px;
-    right: 6px;
-    bottom: 6px;
-    padding: 8px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    padding: 5px;
+    transform: scale(0.82);
+    transform-origin: bottom center;
   }
 
   button {
-    min-width: 76px;
-    padding: 7px 8px;
-    font-size: 12px;
+    min-width: 60px;
+    padding: 5px 6px;
+    font-size: 10px;
+  }
+
+  .pill {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+}
+
+/* Extra tiny phones */
+@media (max-width: 740px) and (orientation: landscape) {
+  .topbar,
+  .leftPanel,
+  #menuButtons,
+  .bottomPanel {
+    transform: scale(0.7);
+  }
+
+  button {
+    min-width: 52px;
+    font-size: 9px;
+  }
+
+  .pill {
+    font-size: 9px;
   }
 }
