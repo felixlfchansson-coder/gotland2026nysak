@@ -1,30 +1,32 @@
-import { markFlyhageCharacterWin } from "./scripts/cosmetics.js";
-import { submitHighscore } from "./scripts/highscores.js";
-document.addEventListener('DOMContentLoaded', () => {
+import { markFlyhageCharacterWin } from "./cosmetics.js";
+import { submitHighscore } from "./highscores.js";
+import { unlockAchievement } from "./achievements.js";
+
+document.addEventListener("DOMContentLoaded", () => {
   let sheep = {};
 
   const STAT_LIMIT = 100;
 
-  const healthDisplay = document.getElementById('health-display');
-  const hungerDisplay = document.getElementById('hunger-display');
-  const woodDisplay = document.getElementById('wood-display');
-  const dayDisplay = document.getElementById('day-display');
-  const courageDisplay = document.getElementById('courage-display');
-  const inventoryDisplay = document.getElementById('inventory-display');
-  const timeDisplay = document.getElementById('time-display');
-  const logArea = document.getElementById('log-area');
-  const sheepNameDisplay = document.getElementById('sheep-name-display');
-  const sheepTypeDisplay = document.getElementById('sheep-type-display');
-  const escapePlanDisplay = document.getElementById('escape-plan-display');
-  const sheepImage = document.getElementById('sheep-image');
+  const healthDisplay = document.getElementById("health-display");
+  const hungerDisplay = document.getElementById("hunger-display");
+  const woodDisplay = document.getElementById("wood-display");
+  const dayDisplay = document.getElementById("day-display");
+  const courageDisplay = document.getElementById("courage-display");
+  const inventoryDisplay = document.getElementById("inventory-display");
+  const timeDisplay = document.getElementById("time-display");
+  const logArea = document.getElementById("log-area");
+  const sheepNameDisplay = document.getElementById("sheep-name-display");
+  const sheepTypeDisplay = document.getElementById("sheep-type-display");
+  const escapePlanDisplay = document.getElementById("escape-plan-display");
+  const sheepImage = document.getElementById("sheep-image");
 
-  const gatherWoodBtn = document.getElementById('gather-wood-btn');
-  const searchFoodBtn = document.getElementById('search-food-btn');
-  const restBtn = document.getElementById('rest-btn');
-  const exploreBtn = document.getElementById('explore-btn');
-  const searchBarnBtn = document.getElementById('search-barn-btn');
-  const escapeBtn = document.getElementById('escape-btn');
-  const restartBtn = document.getElementById('restart-btn');
+  const gatherWoodBtn = document.getElementById("gather-wood-btn");
+  const searchFoodBtn = document.getElementById("search-food-btn");
+  const restBtn = document.getElementById("rest-btn");
+  const exploreBtn = document.getElementById("explore-btn");
+  const searchBarnBtn = document.getElementById("search-barn-btn");
+  const escapeBtn = document.getElementById("escape-btn");
+  const restartBtn = document.getElementById("restart-btn");
 
   const actionButtons = [
     gatherWoodBtn,
@@ -39,32 +41,32 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       name: "Clark Ullofsson",
       type: "Mästerflykting",
-      image: "../images/clarken.png"
+      image: "images/clarken.png"
     },
     {
       name: "Bäännie Clyde",
       type: "Kaos-får",
-      image: "../images/bannie.png"
+      image: "images/bannie.png"
     },
     {
       name: "Sheep Houdini",
       type: "Utbrytarkung",
-      image: "../images/houdini.png"
+      image: "images/houdini.png"
     },
     {
       name: "The Woolfather",
       type: "Hagens gudfader",
-      image: "../images/woolfather.png"
+      image: "images/woolfather.png"
     },
     {
       name: "Mother Bäärisa",
       type: "Heligt får",
-      image: "../images/mother.png"
+      image: "images/mother.png"
     },
     {
       name: "Sheepra Winfry",
       type: "Ullmiljonär",
-      image: "../images/winfry.png"
+      image: "images/winfry.png"
     }
   ];
 
@@ -101,40 +103,53 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btn) btn.disabled = false;
     });
 
-    if (restartBtn) restartBtn.style.display = 'none';
+    if (restartBtn) restartBtn.style.display = "none";
 
     renderUI();
   }
 
   function renderUI() {
-    healthDisplay.textContent = sheep.health;
-    hungerDisplay.textContent = sheep.energy;
-    woodDisplay.textContent = sheep.wool;
-    dayDisplay.textContent = sheep.day;
-    courageDisplay.textContent = sheep.courage;
+    if (healthDisplay) {
+      healthDisplay.textContent = sheep.health;
+      updateStatColor(healthDisplay, sheep.health);
+    }
 
-    timeDisplay.textContent = sheep.day % 2 === 0 ? "Natt 🌙" : "Dag ☀️";
+    if (hungerDisplay) {
+      hungerDisplay.textContent = sheep.energy;
+      updateStatColor(hungerDisplay, sheep.energy);
+    }
 
-    sheepNameDisplay.textContent = sheep.name;
-    sheepTypeDisplay.textContent = `Typ: ${sheep.type}`;
+    if (woodDisplay) woodDisplay.textContent = sheep.wool;
+    if (dayDisplay) dayDisplay.textContent = sheep.day;
+    if (timeDisplay) timeDisplay.textContent = sheep.day % 2 === 0 ? "Natt 🌙" : "Dag ☀️";
 
-    inventoryDisplay.textContent =
-      sheep.inventory.length > 0 ? sheep.inventory.join(", ") : "Tom";
+    if (courageDisplay) {
+      courageDisplay.textContent = sheep.courage;
+      updateStatColor(courageDisplay, sheep.courage);
+    }
+
+    if (sheepNameDisplay) sheepNameDisplay.textContent = sheep.name;
+    if (sheepTypeDisplay) sheepTypeDisplay.textContent = `Typ: ${sheep.type}`;
+
+    if (inventoryDisplay) {
+      inventoryDisplay.textContent =
+        sheep.inventory.length > 0 ? sheep.inventory.join(", ") : "Tom";
+    }
 
     if (sheepImage) {
       sheepImage.src = sheep.image;
       sheepImage.alt = sheep.name;
     }
 
-    escapePlanDisplay.innerHTML = sheep.escapePlan
-      .map(item => sheep.inventory.includes(item) ? `✅ ${item}` : `❌ ${item}`)
-      .join("<br>");
+    if (escapePlanDisplay) {
+      escapePlanDisplay.innerHTML = sheep.escapePlan
+        .map(item => sheep.inventory.includes(item) ? `✅ ${item}` : `❌ ${item}`)
+        .join("<br>");
+    }
 
-    logArea.innerHTML = sheep.log.slice(-7).reverse().join("<br>");
-
-    updateStatColor(healthDisplay, sheep.health);
-    updateStatColor(hungerDisplay, sheep.energy);
-    updateStatColor(courageDisplay, sheep.courage);
+    if (logArea) {
+      logArea.innerHTML = sheep.log.slice(-7).reverse().join("<br>");
+    }
   }
 
   function updateStatColor(element, value) {
@@ -193,12 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sheep.name === "Mother Bäärisa") {
       sheep.health += 3;
       sheep.log.push("🙏 Mother Bäärisa spred lugn i hagen. +3 hälsa.");
-
-      if (sheep.inventory.length > 0 && Math.random() < 0.15) {
-        const randomItem = sheep.inventory[Math.floor(Math.random() * sheep.inventory.length)];
-        sheep.inventory = sheep.inventory.filter(item => item !== randomItem);
-        sheep.log.push(`🐑 Mother Bäärisa gav bort ${randomItem}.`);
-      }
     }
 
     if (sheep.name === "Sheepra Winfry") {
@@ -211,14 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
           sheep.inventory.push(gift);
           sheep.log.push(`🎁 "DU får ${gift}!"`);
         }
-      }
-
-      if (sheep.inventory.length > 0 && Math.random() < 0.18) {
-        const removedItem = sheep.inventory[Math.floor(Math.random() * sheep.inventory.length)];
-        sheep.inventory = sheep.inventory.filter(item => item !== removedItem);
-
-        sheep.log.push(`🎁 Sheepra gav bort ${removedItem}.`);
-        sheep.log.push(`😨 "JUSTE! Jag behövde den till flykten!"`);
       }
     }
 
@@ -265,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const woolFound = Math.floor(Math.random() * 3) + 1;
     sheep.wool += woolFound;
     sheep.energy -= 8;
+
     nextDay(`🧶 Du samlade ${woolFound} ull.`);
   }
 
@@ -290,6 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function explore() {
     sheep.energy -= 10;
     sheep.courage += 8;
+
     nextDay("🔎 Du utforskade hagen.");
   }
 
@@ -344,29 +347,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const success = Math.random();
 
     if (success > 0.5) {
+      sheep.log.push(`🎉 ${sheep.name} flydde från hagen!`);
 
-  sheep.log.push(`🎉 ${sheep.name} flydde från hagen!`);
-  submitHighscore({
-  game: "flyhage",
-  category: "fastest_escape",
-  score: sheep.day,
-  extraData: {
-    character: sheep.name
-  }
-});
-  unlockAchievement("flyktmastare");
+      submitHighscore({
+        game: "flyhage",
+        category: "fastest_escape",
+        score: sheep.day,
+        extraData: {
+          character: sheep.name
+        }
+      });
 
-if (sheep.day <= 5) {
-  unlockAchievement("snabb_far");
-}
+      unlockAchievement("flyktmastare");
 
-  // Sorting Hat progress
-  markFlyhageCharacterWin(sheep.name);
+      if (sheep.day <= 5) {
+        unlockAchievement("snabb_far");
+      }
 
-  disableActions();
-  renderUI();
+      markFlyhageCharacterWin(sheep.name);
 
-} else {
+      disableActions();
+      renderUI();
+    } else {
       sheep.health -= 20;
       sheep.energy -= 15;
       sheep.courage -= 10;
@@ -384,16 +386,16 @@ if (sheep.day <= 5) {
       if (btn) btn.disabled = true;
     });
 
-    if (restartBtn) restartBtn.style.display = 'block';
+    if (restartBtn) restartBtn.style.display = "block";
   }
 
-  gatherWoodBtn.addEventListener('click', gatherWool);
-  searchFoodBtn.addEventListener('click', searchFood);
-  restBtn.addEventListener('click', rest);
-  exploreBtn.addEventListener('click', explore);
-  searchBarnBtn.addEventListener('click', searchBarn);
-  escapeBtn.addEventListener('click', tryEscape);
-  restartBtn.addEventListener('click', initializeGame);
+  if (gatherWoodBtn) gatherWoodBtn.addEventListener("click", gatherWool);
+  if (searchFoodBtn) searchFoodBtn.addEventListener("click", searchFood);
+  if (restBtn) restBtn.addEventListener("click", rest);
+  if (exploreBtn) exploreBtn.addEventListener("click", explore);
+  if (searchBarnBtn) searchBarnBtn.addEventListener("click", searchBarn);
+  if (escapeBtn) escapeBtn.addEventListener("click", tryEscape);
+  if (restartBtn) restartBtn.addEventListener("click", initializeGame);
 
   initializeGame();
 });
