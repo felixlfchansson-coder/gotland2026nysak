@@ -3,6 +3,7 @@ import { FACTIONS } from "./factions.js";
 import { Unit, Structure, Effect, Projectile } from "./entities.js";
 import { markShaolinHardWin } from "../../scripts/cosmetics.js";
 import { unlockAchievement } from "../../scripts/achievements.js";
+import { submitHighscore } from "../../scripts/highscores.js";  
 const DIFFICULTY = {
   easy:   { enemySpawnMult: 1.35, aiXpMult: 1.05, enemyGoldMult: 0.85 },
   normal: { enemySpawnMult: 1.0,  aiXpMult: 1.35, enemyGoldMult: 1.0 },
@@ -657,6 +658,15 @@ if (this.difficultyKey === "hard") {
 if (this.difficultyKey === "insane") {
   unlockAchievement("sheep_line_insane");
 }
+submitHighscore({
+  game: "sheepline",
+  category: `${this.difficultyKey}_speedrun`,
+  score: Math.floor(this.time || this.gameTime || 0),
+  extraData: {
+    faction: this.factionKey,
+    difficulty: this.difficultyKey
+  }
+});
 
     this.gameOver = "VICTORY";
   }

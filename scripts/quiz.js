@@ -1,3 +1,4 @@
+import { submitHighscore } from "./highscores.js";
 const questions = [
   {
     question: "Vilken av dessa är mest stolig?",
@@ -545,6 +546,18 @@ function handleTimeout() {
 
 function showResult() {
   clearInterval(timer);
+    submitHighscore({
+    game: "quiz",
+    category: "highscore",
+    score: score,
+    extraData: {
+      totalQuestions: questions.length
+    }
+  });
+
+  if (score >= questions.length) {
+    unlockAchievement("quiz_master");
+  }
 
   cardEl.classList.add("hidden");
   resultEl.classList.remove("hidden");

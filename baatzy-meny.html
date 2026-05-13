@@ -108,6 +108,15 @@ import { markPageVisited } from "scripts/cosmetics.js";
 markPageVisited("baatzy-meny");
 </script>
 <script src="scripts/auth-check.js"></script>
+<script type="module">
+import {
+  loadProgressFromSupabase,
+  enableAutoProgressSave
+} from "./scripts/progress-sync.js";
+
+await loadProgressFromSupabase();
+enableAutoProgressSave();
+</script>
   </main>
 </body>
 </html>

@@ -1,4 +1,5 @@
 import { markFlyhageCharacterWin } from "./scripts/cosmetics.js";
+import { submitHighscore } from "./scripts/highscores.js";
 document.addEventListener('DOMContentLoaded', () => {
   let sheep = {};
 
@@ -345,6 +346,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (success > 0.5) {
 
   sheep.log.push(`🎉 ${sheep.name} flydde från hagen!`);
+  submitHighscore({
+  game: "flyhage",
+  category: "fastest_escape",
+  score: sheep.day,
+  extraData: {
+    character: sheep.name
+  }
+});
   unlockAchievement("flyktmastare");
 
 if (sheep.day <= 5) {

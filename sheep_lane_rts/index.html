@@ -75,5 +75,14 @@
   </div>
 
   <script type="module" src="src/main.js"></script>
+  <script type="module">
+import {
+  loadProgressFromSupabase,
+  enableAutoProgressSave
+} from "./scripts/progress-sync.js";
+
+await loadProgressFromSupabase();
+enableAutoProgressSave();
+</script>
 </body>
 </html>
