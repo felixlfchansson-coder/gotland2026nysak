@@ -1,4 +1,6 @@
 import { submitHighscore } from "./highscores.js";
+import { unlockAchievement } from "./achievements.js";
+import { markQuizPlayed } from "./cosmetics.js";
 const questions = [
   {
     question: "Vilken av dessa är mest stolig?",
